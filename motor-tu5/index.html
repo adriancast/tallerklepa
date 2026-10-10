@@ -1,0 +1,1057 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Preparación del TU5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+<style>
+[hidden]{display:none!important}
+img{max-width:100%}
+/* Layout: índice lateral fijo + columna de lectura; cada paso es una secuencia de tareas de taller numeradas. */
+:root{
+  box-sizing:border-box;
+  --bg:#f2f4f6; --surface:#ffffff; --ink:#14212e; --muted:#53636f; --line:#d3dbe2;
+  --accent:#1f5fd6; --accent-bg:#e7effd;
+  --ok:#12786a; --ok-bg:#dff2ee;
+  --warn:#b05c00; --warn-bg:#fdf0dc;
+  --bad:#b3261e; --bad-bg:#fbe4e2;
+  --mass:#8896a3;
+  --t1:#c62828; --t2:#2e7d32; --t3:#a87900; --t4:#1f5fd6;
+  --display:'Barlow Semi Condensed','Arial Narrow',system-ui,sans-serif;
+  --body:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e151c; --surface:#16202a; --ink:#e7edf3; --muted:#a2b2c1; --line:#2b3947;
+    --accent:#86adff; --accent-bg:#18283f;
+    --ok:#4fd1bb; --ok-bg:#12332e;
+    --warn:#ffb04d; --warn-bg:#3a2a12;
+    --bad:#ff8a80; --bad-bg:#3d1a18;
+    --mass:#6e7d8b;
+    --t1:#ff7a70; --t2:#6fd28a; --t3:#ffd54f; --t4:#86adff;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e151c; --surface:#16202a; --ink:#e7edf3; --muted:#a2b2c1; --line:#2b3947;
+  --accent:#86adff; --accent-bg:#18283f;
+  --ok:#4fd1bb; --ok-bg:#12332e;
+  --warn:#ffb04d; --warn-bg:#3a2a12;
+  --bad:#ff8a80; --bad-bg:#3d1a18;
+  --mass:#6e7d8b;
+  --t1:#ff7a70; --t2:#6fd28a; --t3:#ffd54f; --t4:#86adff;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 14px);scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);padding-bottom:84px}
+h1,h2,h3,h4{font-family:var(--display);text-wrap:balance}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+.top{max-width:1120px;margin:0 auto;padding:40px 20px 8px}
+.top h1{font-size:clamp(2rem,5vw,3.3rem);line-height:1.04;font-weight:700;margin:0 0 12px;max-width:20ch;letter-spacing:-.01em}
+.top p.lead{font-size:1.08rem;max-width:64ch;margin:0 0 10px;color:var(--muted)}
+
+.layout{display:grid;grid-template-columns:minmax(0,1fr);gap:28px;max-width:1120px;margin:0 auto;padding:8px 20px 60px}
+@media (min-width:980px){.layout{grid-template-columns:240px minmax(0,1fr);gap:36px}}
+@media (min-width:1400px){.layout{max-width:1360px;grid-template-columns:330px minmax(0,1fr);gap:48px}.top{max-width:1360px}}
+.rail{display:none}
+@media (min-width:980px){
+  .rail{display:block;position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;padding-top:30px;max-height:calc(100vh - 110px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+  .rail ol{list-style:none;margin:0;padding:0;border-left:2px solid var(--line)}
+  .rail a{display:flex;justify-content:space-between;gap:8px;padding:5px 0 5px 14px;margin-left:-2px;border-left:2px solid transparent;text-decoration:none;color:var(--muted);font-size:.9rem;line-height:1.35}
+  .rail a:hover{color:var(--ink)}
+  .rail a.on{color:var(--ink);border-left-color:var(--accent);font-weight:600}
+  .rail a .pc{font-family:var(--display);font-size:.82rem;color:var(--muted);font-weight:500;white-space:nowrap}
+  .rail a .pc.full{color:var(--ok)}
+  .rail ol.sub{border-left:0;margin:0 0 6px}
+  .rail ol.sub a{padding:2px 0 2px 26px;font-size:.8rem;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+  .rail ol.sub a.on{color:var(--ink);border-left-color:var(--accent);font-weight:500}
+}
+main{min-width:0;max-width:900px}
+.step{padding:34px 0 26px;border-top:1px solid var(--line)}
+.step:first-child{border-top:0;padding-top:26px}
+.step h2{display:flex;align-items:center;gap:12px;font-size:clamp(1.5rem,3.3vw,2rem);line-height:1.15;margin:0 0 12px;font-weight:700;flex-wrap:wrap}
+.step h2 .n{flex:none;display:inline-grid;place-items:center;width:2.1rem;height:2.1rem;border:2px solid var(--ink);border-radius:50%;font-size:1.05rem}
+.step h2 .prog{margin-left:auto;font-family:var(--display);font-size:.95rem;font-weight:600;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:99px;padding:2px 12px}
+.step h2 .prog.full{color:var(--ok);border-color:var(--ok)}
+.step h3{font-size:1.25rem;margin:28px 0 8px}
+.step h4{font-size:1.05rem;margin:18px 0 6px}
+.step p{margin:0 0 12px;max-width:68ch}
+.step ul,.step ol.plainlist{max-width:68ch;padding-left:1.2rem;margin:0 0 12px}
+.step li{margin-bottom:4px}
+.hint{font-weight:400;font-size:.82rem;color:var(--muted);line-height:1.4}
+
+/* Tarjetas de nota y fórmulas */
+.note{border-left:4px solid var(--mass);background:var(--surface);padding:12px 16px;margin:14px 0;border-radius:0 8px 8px 0;max-width:72ch;font-size:.96rem}
+.note p{margin:0 0 8px}.note p:last-child{margin:0}
+.note.ok{border-left-color:var(--ok)}.note.warn{border-left-color:var(--warn)}.note.bad{border-left-color:var(--bad)}.note.acc{border-left-color:var(--accent)}
+.note strong.lead{font-family:var(--display);font-size:1.05rem}
+.formula{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--accent);padding:10px 16px;font-family:var(--display);font-size:1.2rem;margin:14px 0;overflow-x:auto;white-space:nowrap}
+.formula i{font-style:italic}
+
+/* Chips de estado */
+.chip{display:inline-block;padding:1px 9px;border-radius:99px;font-size:.82rem;font-weight:600;white-space:nowrap;font-family:var(--body)}
+.chip.ok{background:var(--ok-bg);color:var(--ok)}.chip.warn{background:var(--warn-bg);color:var(--warn)}.chip.bad{background:var(--bad-bg);color:var(--bad)}.chip.na{background:var(--bg);color:var(--muted)}
+.tray-dot{display:inline-block;width:.8em;height:.8em;border-radius:50%;vertical-align:-.05em;margin-right:4px;border:1px solid rgba(0,0,0,.15)}
+.c1{--tc:var(--t1)}.c2{--tc:var(--t2)}.c3{--tc:var(--t3)}.c4{--tc:var(--t4)}
+.tray-dot{background:var(--tc)}
+.tname{font-weight:700;color:var(--tc)}
+
+/* Entradas */
+.inputs{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px 14px;margin:14px 0}
+.inputs label{display:flex;flex-direction:column;gap:4px;font-weight:600;font-size:.93rem;min-width:0}
+input[type=number],input[type=text],select,textarea{font:inherit;font-weight:500;padding:7px 9px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);width:100%;min-width:0}
+input[type=number]{font-variant-numeric:tabular-nums}
+input.ex{color:var(--muted);font-style:italic}
+input.ex.mine,select.mine{color:var(--ink);font-style:normal}
+label.edited input,td.edited input{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+button{font:inherit;font-weight:600;padding:7px 14px;border-radius:6px;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer}
+button:hover{background:var(--ink);color:var(--bg)}
+button.primary{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+button.primary:hover{filter:brightness(1.1)}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+
+/* Tablas de medida por cilindro */
+.scroll{overflow-x:auto;margin:12px 0;max-width:100%}
+table{border-collapse:collapse;width:100%;font-size:.92rem;background:var(--surface)}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:middle}
+th{font-family:var(--display);font-size:.98rem;font-weight:600;background:var(--bg)}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
+table.grid td input{min-width:76px;text-align:right;padding:5px 7px}
+table.grid tr.cy th:first-child{box-shadow:inset 6px 0 0 var(--tc);padding-left:14px;white-space:nowrap}
+table.grid td.res{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap;font-weight:600}
+
+/* Tareas guiadas */
+ol.tasks{list-style:none;margin:14px 0;padding:0;display:grid;gap:10px;counter-reset:tk}
+li.task{counter-increment:tk;display:grid;grid-template-columns:2.1rem minmax(0,1fr);gap:4px 12px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+li.task::before{content:counter(tk);grid-row:1 / span 3;display:grid;place-items:center;width:2.1rem;height:2.1rem;border-radius:50%;background:var(--bg);font-family:var(--display);font-weight:700;color:var(--muted)}
+li.task.done{background:var(--bg)}
+li.task.done::before{content:"✓";background:var(--ok-bg);color:var(--ok)}
+li.task.next{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-bg)}
+li.task .tt{font-family:var(--display);font-weight:700;font-size:1.08rem;line-height:1.25;display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+li.task .tb{font-size:.94rem;min-width:0}
+li.task .tb p{margin:4px 0;max-width:none}
+li.task .tb .inputs{margin:8px 0 2px}
+li.task.done .tt span:first-child{color:var(--muted)}
+label.done{display:inline-flex;align-items:center;gap:6px;font-family:var(--body);font-size:.85rem;font-weight:600;color:var(--muted);white-space:nowrap;cursor:pointer;flex:none}
+label.done input{width:1.15rem;height:1.15rem;accent-color:var(--ok);margin:0}
+
+/* Bandejas */
+.trays{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:12px 0}
+@media (max-width:700px){.trays{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.tray{padding:6px 6px 8px}.tray .it{font-size:.76rem;padding:3px 4px}.tray .it small{display:block}.tray .sum{font-size:.92rem}}
+.tray{border:2px solid var(--tc);border-radius:12px;background:color-mix(in srgb,var(--tc) 9%,var(--surface));padding:8px 10px 10px;min-width:0}
+.tray h5{margin:0 0 6px;font-family:var(--display);font-size:1rem;display:flex;justify-content:space-between;gap:6px;color:var(--tc)}
+.tray h5 small{color:var(--muted);font-weight:500}
+.tray .it{display:flex;justify-content:space-between;gap:6px;font-size:.86rem;padding:3px 6px;border-radius:6px;background:var(--surface);margin-top:4px;border:1px solid var(--line);font-variant-numeric:tabular-nums}
+.tray .it.mv{border-color:var(--tc2,var(--accent));box-shadow:inset 4px 0 0 var(--tc2,var(--accent))}
+.tray .it.cut{border-color:var(--warn);box-shadow:inset 4px 0 0 var(--warn)}
+.tray .it b{font-weight:600}
+.tray .sum{margin-top:6px;font-family:var(--display);font-weight:700;font-size:1.05rem;display:flex;justify-content:space-between}
+.tray .sum .sm{display:none}
+.tray .sum span{white-space:nowrap}
+@media (max-width:700px){.tray .sum .lg{display:none}.tray .sum .sm{display:inline}.tray h5 small{display:none}}
+.arrows{display:block;width:100%;height:70px;margin:6px 0 -6px}
+@media (max-width:700px){.arrows{display:none}}
+
+/* Operaciones del plan */
+ol.ops{list-style:none;padding:0;margin:12px 0;display:grid;gap:8px;counter-reset:op}
+ol.ops li{counter-increment:op;display:grid;grid-template-columns:2rem minmax(0,1fr) auto;gap:6px 10px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+ol.ops li::before{content:counter(op);display:grid;place-items:center;width:2rem;height:2rem;border-radius:50%;background:var(--bg);font-family:var(--display);font-weight:700}
+ol.ops li.done{background:var(--bg)}
+ol.ops li.done::before{content:"✓";background:var(--ok-bg);color:var(--ok)}
+ol.ops .what{font-size:.97rem}
+ol.ops .what small{display:block;color:var(--muted);font-size:.82rem;margin-top:2px}
+ol.ops .after{grid-column:2 / -1;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:.88rem}
+ol.ops .after input{width:110px}
+
+/* Resultados */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:12px 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-width:0}
+.card h5{margin:0 0 2px;font-family:var(--display);font-size:.98rem;color:var(--muted);font-weight:600}
+.card .big{font-family:var(--display);font-size:1.9rem;font-weight:700;line-height:1.1;font-variant-numeric:tabular-nums}
+.card .big small{font-size:.95rem;color:var(--muted);font-weight:500;margin-left:4px}
+.card .sub{font-size:.85rem;color:var(--muted);margin-top:3px}
+figure.fig{margin:12px 0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px;max-width:640px}
+figure.fig svg{display:block;width:100%;height:auto}
+figure.fig figcaption{font-size:.82rem;color:var(--muted);margin-top:6px}
+.svg-ink{stroke:var(--ink);fill:none}.svg-fill{fill:var(--bg);stroke:var(--ink)}.svg-t{fill:var(--ink);font:600 12px var(--body)}.svg-m{fill:var(--muted);font:500 11px var(--body)}
+.svg-acc{stroke:var(--accent);fill:none}.svg-warn{stroke:var(--warn);fill:none}
+
+/* Hoja de ruta y ficha */
+table.roadmap td:first-child{white-space:nowrap;font-weight:600}
+table.sheet th{width:38%;font-weight:600;background:transparent}
+table.sheet tr.grp th{background:var(--bg);font-size:1.05rem;width:auto}
+.est{color:var(--muted);font-style:italic}
+#dataBox{width:100%;margin:10px 0;font:12px/1.4 var(--mono)}
+
+/* Barra inferior: siguiente tarea */
+.nextbar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--surface);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));box-shadow:0 -6px 20px rgba(0,0,0,.08)}
+.nextbar .in{max-width:1360px;margin:0 auto;display:flex;gap:14px;align-items:center}
+.nextbar .bar{flex:none;width:120px;height:8px;border-radius:99px;background:var(--bg);overflow:hidden;border:1px solid var(--line)}
+.nextbar .bar i{display:block;height:100%;background:var(--ok);width:0}
+.nextbar .txt{flex:1;min-width:0;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nextbar .txt b{font-family:var(--display);font-size:1rem}
+.nextbar .cnt{font-family:var(--display);font-weight:600;color:var(--muted);white-space:nowrap}
+@media (max-width:600px){.nextbar .bar{width:56px}.nextbar .cnt{display:none}}
+
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="homelink" href="../" style="display:inline-flex;align-items:center;gap:6px;font:600 .9rem 'IBM Plex Sans',system-ui,sans-serif;color:var(--muted);text-decoration:none;margin-bottom:14px">← Taller Klepa · inicio</a>
+  <h1>Preparación del motor TU5 para competición</h1>
+  <p class="lead">Receta de taller para convertir un TU5 de serie en un motor de F2000: se mide, se apunta lo que se encuentra y la página calcula cómo tiene que quedar y qué hacer con cada pieza. Pensada para el <b>TU5J4 de 16 válvulas</b> y compatible con los 8 válvulas (TU5JP, TU5J2).</p>
+  <p class="lead">Los números que ves al abrir son <b>de ejemplo</b> (en cursiva gris). Sustitúyelos por los tuyos o pulsa «Empezar un motor nuevo» en el paso 12. Los límites del fabricante los pones tú desde el manual: la página no los inventa.</p>
+</header>
+
+<div class="layout">
+<nav class="rail" aria-label="Pasos"><ol id="railList"></ol></nav>
+<main>
+
+<!-- 0 -->
+<section class="step" id="s0">
+  <h2>Hoja de ruta</h2>
+  <p>El orden va de fuera hacia dentro y de medir a montar: primero se diagnostica el motor entero, luego se desmonta pieza a pieza a sus bandejas, se mide cada pieza y se decide qué se cambia o se mecaniza. Con las piezas definitivas se calcula la compresión y el calado, y al final se monta siguiendo la lista y se arranca.</p>
+  <div class="scroll"><table class="roadmap" id="roadmap">
+    <thead><tr><th>Paso</th><th>Qué haces en el taller</th><th>Qué obtienes</th><th class="r">Tareas</th></tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <h3>0.1 Las cuatro bandejas</h3>
+  <p>Cada cilindro tiene su bandeja y su color, y se usan en toda la guía: en las tablas, en las instrucciones y en el equilibrado. Todo lo que sale de un cilindro va a su bandeja y no se mezcla hasta que la guía lo diga.</p>
+  <div class="trays" id="trayLegend"></div>
+  <div class="note acc"><p><strong class="lead">Cilindro 1:</strong> en PSA el cilindro 1 es el del lado del volante (caja de cambios) y el 4 el del lado de la distribución. Compruébalo en tu manual y marca las bandejas antes de soltar el primer tornillo.</p></div>
+  <div class="inputs" data-fields="engine"></div>
+  <p class="hint" id="engineHint"></p>
+</section>
+
+<!-- 1 -->
+<section class="step" id="s1">
+  <h2><span class="n">1</span>Diagnóstico antes de desmontar</h2>
+  <p>Antes de abrir se mide el motor entero en el coche. Dice qué cilindro tiene problemas y por dónde, y deja un punto de partida para comparar al final (paso 11).</p>
+  <h3>1.1 Motor y objetivo</h3>
+  <div class="inputs" data-fields="target"></div>
+  <div class="note"><p>Con gasolina de 98 el límite lo pone la detonación: la compresión dinámica (8.4) y el avance del encendido mandan más que la relación de compresión estática.</p></div>
+  <h3>1.2 Compresión en frío</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t1a"><div class="tt"><span>Prepara la prueba</span></div><div class="tb"><p>Motor a temperatura, todas las bujías fuera, acelerador a fondo y bomba de gasolina desconectada (quita el fusible o el relé). Batería cargada: la prueba depende de que el motor gire siempre igual de rápido.</p></div></li>
+    <li class="task" data-t="t1b"><div class="tt"><span>Mide cada cilindro</span></div><div class="tb"><p>Enrosca el compresímetro, da arranque hasta que la aguja deje de subir (unas 5 vueltas) y apunta. Repite en los cuatro con el mismo número de vueltas.</p><div data-grid="comp"></div></div></li>
+  </ol>
+  <div id="r1comp"></div>
+  <h3>1.3 Prueba de fugas</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t1c"><div class="tt"><span>Pon el cilindro en PMS de compresión</span></div><div class="tb"><p>Gira el cigüeñal hasta que el pistón del cilindro esté arriba con las dos válvulas cerradas. Bloquea el cigüeñal con una marcha metida: con presión el motor tiende a girar.</p></div></li>
+    <li class="task" data-t="t1d"><div class="tt"><span>Mete aire y escucha por dónde sale</span></div><div class="tb"><p>Conecta el comprobador a 5–7 bar, apunta el % de fuga y escucha: por la admisión (válvula de admisión), por el escape (válvula de escape), por el tapón de aceite (segmentos) o burbujas en el radiador (junta o culata).</p><div data-grid="leak"></div></div></li>
+  </ol>
+  <div id="r1leak"></div>
+  <h3>1.4 Presión de aceite</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t1e"><div class="tt"><span>Mide con manómetro mecánico</span></div><div class="tb"><p>En lugar del manocontacto, con el aceite caliente (unos 90 °C). Apunta a ralentí y a 4000 rpm.</p><div class="inputs" data-fields="oil0"></div></div></li>
+  </ol>
+  <div id="r1oil"></div>
+</section>
+
+<!-- 2 -->
+<section class="step" id="s2">
+  <h2><span class="n">2</span>Desmontaje, bandejas y marcado</h2>
+  <p>Un motor de competición se monta con cada pieza en el sitio donde se midió. Lo que no está marcado no se sabe de dónde salió, y hay que volver a medirlo todo.</p>
+  <h3>2.1 Prepara el banco</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t2a"><div class="tt"><span>Pon las cuatro bandejas en orden</span></div><div class="tb"><p>De izquierda a derecha: roja (1), verde (2), amarilla (3), azul (4), en el mismo orden que los cilindros en el motor. Al lado, una caja para tornillería con bolsas etiquetadas por grupo (culata, cárter, distribución, bancada).</p></div></li>
+    <li class="task" data-t="t2b"><div class="tt"><span>Ten a mano el material de marcado</span></div><div class="tb"><p>Granete pequeño o grabador, rotulador de pintura y cinta de carrocero. No marques nunca con granete superficies de apoyo, cojinetes ni la cabeza del pistón.</p></div></li>
+  </ol>
+  <h3>2.2 Culata y distribución</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t2c"><div class="tt"><span>Cala el motor en PMS del cilindro 1 antes de soltar la correa</span></div><div class="tb"><p>Coloca los pasadores de calado del cigüeñal y de los árboles. Marca con pintura el sentido de giro de la correa si se va a reutilizar (en competición, mejor nueva).</p></div></li>
+    <li class="task" data-t="t2d"><div class="tt"><span>Suelta la culata en el orden inverso al de apriete</span></div><div class="tb"><p>Desde fuera hacia el centro, en dos pasadas, con el motor frío. Así no se deforma.</p></div></li>
+    <li class="task" data-t="t2e"><div class="tt"><span>Válvulas, muelles y empujadores a su bandeja</span></div><div class="tb"><p id="valveTrayText"></p><p>Los empujadores (y sus pastillas, si son mecánicos) van con su válvula: cada empujador se ha asentado en su alojamiento y en su leva.</p></div></li>
+  </ol>
+  <h3>2.3 Pistones, bielas y cigüeñal</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t2f"><div class="tt"><span>Marca bielas y sombreretes antes de soltarlos</span></div><div class="tb"><p>Un punto de granete por número de cilindro (1 punto = cilindro 1) en la biela y en su sombrerete, los dos en el mismo lado, mirando al escape. El sombrerete solo encaja bien en su biela y en esa posición.</p></div></li>
+    <li class="task" data-t="t2g"><div class="tt"><span>Saca cada pistón con su biela a su bandeja</span></div><div class="tb"><p>Los cojinetes de biela, en la bandeja, marcados con cinta: «superior» e «inferior». Por cómo se han desgastado se ve si la biela trabajaba torcida o le faltaba aceite.</p></div></li>
+    <li class="task" data-t="t2h"><div class="tt"><span>Sombreretes y cojinetes de bancada en orden</span></div><div class="tb"><p>Los sombreretes de bancada van numerados del 1 al 5 desde el volante. Ponlos en fila en el banco en ese orden, con sus cojinetes, y anota dónde va la arandela de empuje (juego axial).</p></div></li>
+  </ol>
+  <h3>2.4 Inspección visual</h3>
+  <p>Antes de limpiar: el aspecto de las piezas cuenta lo que le pasaba al motor. Apunta lo que ves en cada cilindro.</p>
+  <div data-grid="visual"></div>
+  <div id="r2vis"></div>
+</section>
+
+<!-- 3 -->
+<section class="step" id="s3">
+  <h2><span class="n">3</span>Bloque y camisas</h2>
+  <p>El bloque del TU es de aluminio con camisas de fundición. Se mide el desgaste de cada camisa, cuánto sobresale del bloque y la planitud del plano de junta. Con eso se decide si se cambian o se rectifican, y a qué medida.</p>
+  <h3>3.1 Diámetro de los cilindros</h3>
+  <figure class="fig" style="max-width:520px"><svg id="figBore" viewBox="0 0 520 230" role="img" aria-label="Camisa vista de lado y desde arriba con las tres alturas de medida y las dos direcciones A y B"></svg><figcaption>Tres alturas (arriba, centro y abajo de la zona de segmentos) y dos direcciones: A paralela al cigüeñal, B perpendicular (la de empuje del pistón, la que más se desgasta).</figcaption></figure>
+  <ol class="tasks">
+    <li class="task" data-t="t3a"><div class="tt"><span>Calibra el alexómetro</span></div><div class="tb"><p>Pon el micrómetro a la medida nominal, mete el alexómetro, ponlo a cero y apunta las lecturas como diámetro (nominal ± lo que marque el reloj). Todo a la misma temperatura: el bloque y los útiles en el taller desde la víspera.</p><div class="inputs" data-fields="boreNom"></div></div></li>
+    <li class="task" data-t="t3b"><div class="tt"><span>Mide los cuatro cilindros</span></div><div class="tb"><p>Arriba, a unos 10 mm del borde (donde llega el primer segmento); en el centro; y abajo, a unos 10 mm del final de la carrera del segmento rascador. En cada altura, A y B.</p><div data-grid="bore"></div></div></li>
+  </ol>
+  <div id="r3bore"></div>
+  <h3>3.2 Decisión: medida final del cilindro</h3>
+  <div class="inputs" data-fields="boreDecision"></div>
+  <div id="r3dec"></div>
+  <h3>3.3 Saliente de las camisas</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t3c"><div class="tt"><span>Sujeta las camisas y mide con comparador</span></div><div class="tb"><p>Con las camisas sujetas con bridas (sin bridas suben y la lectura no vale), comparador en un soporte con base sobre el bloque. Pon a cero en el bloque y mide el borde de la camisa en dos puntos opuestos.</p><div data-grid="liner"></div></div></li>
+  </ol>
+  <div id="r3liner"></div>
+  <h3>3.4 Planitud del plano de junta</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t3d"><div class="tt"><span>Regla y galgas en seis posiciones</span></div><div class="tb"><p>Regla rectificada a lo largo (2), en las dos diagonales (2) y a lo ancho entre cilindros (2). Apunta la galga más gruesa que entra en cada una.</p><div class="inputs" data-fields="deckFlat"></div></div></li>
+  </ol>
+  <div id="r3flat"></div>
+</section>
+
+<!-- 4 -->
+<section class="step" id="s4">
+  <h2><span class="n">4</span>Cigüeñal y cojinetes</h2>
+  <p>Cinco apoyos de bancada y cuatro muñequillas de biela. Se mide el eje, el alojamiento con los cojinetes montados y apretados al par, y de la diferencia sale la holgura de aceite.</p>
+  <h3>4.1 Apoyos y muñequillas</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t4a"><div class="tt"><span>Mide con micrómetro en dos direcciones y dos posiciones</span></div><div class="tb"><p>En cada apoyo y muñequilla: direcciones 1 y 2 a 90°, y cerca de cada extremo (no en el radio de acuerdo). Aquí se apunta la media de cada uno; la diferencia máxima entre lecturas, en la columna de ovalización.</p><div data-grid="mains"></div><div data-grid="pins"></div></div></li>
+  </ol>
+  <div id="r4journal"></div>
+  <h3>4.2 Holgura de bancada y de biela</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t4b"><div class="tt"><span>Monta cojinetes nuevos y aprieta al par</span></div><div class="tb"><p>Sombreretes de bancada en su sitio y en su orden, tornillos aceitados, par del manual. Las bielas, con sus sombreretes y cojinetes, también al par.</p></div></li>
+    <li class="task" data-t="t4c"><div class="tt"><span>Mide el diámetro interior con el alexómetro</span></div><div class="tb"><p>En vertical (la dirección que carga), a cero con el micrómetro puesto a la medida del eje. La holgura es interior del cojinete menos diámetro del eje.</p><div data-grid="mainBore"></div><div data-grid="rodBore"></div><div class="inputs" data-fields="clearRule"></div></div></li>
+  </ol>
+  <div id="r4clear"></div>
+  <h3>4.3 Juego axial y lateral</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t4d"><div class="tt"><span>Juego axial del cigüeñal con comparador</span></div><div class="tb"><p>Comparador en el extremo del cigüeñal, empuja con una palanca hacia un lado, cero, y hacia el otro.</p></div></li>
+    <li class="task" data-t="t4e"><div class="tt"><span>Juego lateral de cada biela con galgas</span></div><div class="tb"><p>Entre la cara de la biela y el contrapeso, con la biela apretada al par.</p><div data-grid="side"></div><div class="inputs" data-fields="axial"></div></div></li>
+  </ol>
+  <div id="r4axial"></div>
+</section>
+
+<!-- 5 -->
+<section class="step" id="s5">
+  <h2><span class="n">5</span>Pistones, bielas y equilibrado</h2>
+  <p>Los cuatro conjuntos alternativos (pistón, bulón, segmentos, clips y pie de biela) tienen que pesar lo mismo, y las cabezas de biela también. Primero se pesa todo por bandeja; la página busca qué piezas intercambiar entre bandejas para quitar el mínimo material, y te dice qué quitar y dónde.</p>
+  <h3>5.1 Datos de los pistones y bielas</h3>
+  <p>Del fabricante de los pistones (en F2000, forjados) y de las bielas. Son los que usa el cálculo de compresión.</p>
+  <div class="inputs" data-fields="pistonSpec"></div>
+  <h3>5.2 Pesada por bandeja</h3>
+  <figure class="fig" style="max-width:560px"><svg id="figRod" viewBox="0 0 560 170" role="img" aria-label="Pesada de los extremos de la biela: un extremo sobre la báscula y el otro sobre un soporte a la misma altura"></svg><figcaption>Extremo grande: la cabeza en la báscula y el pie sobre un soporte a la misma altura, con la biela horizontal. Extremo pequeño: al revés. La suma de los dos debe dar el peso total.</figcaption></figure>
+  <ol class="tasks">
+    <li class="task" data-t="t5a"><div class="tt"><span>Pon a cero la báscula y comprueba con una pesa patrón</span></div><div class="tb"><p>Báscula de 0,1 g como mínimo (mejor 0,01 g), lejos de corrientes de aire. Las piezas limpias y secas.</p></div></li>
+    <li class="task" data-t="t5b"><div class="tt"><span>Pesa cada pieza y apúntala en su bandeja</span></div><div class="tb"><p>Pistón solo, bulón, juego de segmentos y los dos clips. La biela con el sombrerete y los tornillos apretados, sin cojinetes: entera, extremo grande y extremo pequeño.</p><div data-grid="weights"></div></div></li>
+  </ol>
+  <div id="r5check"></div>
+  <h3>5.3 Plan de equilibrado</h3>
+  <div class="inputs" data-fields="balRule"></div>
+  <div class="btnrow"><button type="button" id="balBefore">Ver bandejas antes</button><button type="button" id="balAfter" class="primary">Ver bandejas después del plan</button></div>
+  <svg class="arrows" id="balArrows" viewBox="0 0 400 70" preserveAspectRatio="none" aria-hidden="true"></svg>
+  <div class="trays" id="balTrays"></div>
+  <div id="r5plan"></div>
+  <ol class="ops" id="balOps"></ol>
+  <div id="r5final"></div>
+  <h3>5.4 Abertura de los segmentos</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t5c"><div class="tt"><span>Mete cada segmento en su cilindro</span></div><div class="tb"><p>Ya con el cilindro a su medida final. Empújalo con la cabeza de un pistón invertido hasta unos 15 mm del borde, para que quede recto, y mide la abertura con galgas. Cada juego de segmentos se queda en su bandeja: una vez ajustado ya es de ese cilindro.</p><div class="inputs" data-fields="ringRule"></div><div data-grid="rings"></div></div></li>
+  </ol>
+  <div id="r5rings"></div>
+</section>
+
+<!-- 6 -->
+<section class="step" id="s6">
+  <h2><span class="n">6</span>Culata, válvulas y muelles</h2>
+  <h3>6.1 Planitud y altura</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t6a"><div class="tt"><span>Regla y galgas en la culata</span></div><div class="tb"><p>Igual que en el bloque: a lo largo, en diagonal y entre cámaras. Si se rectifica, apunta cuánto se ha quitado: sube la compresión y entra en el cálculo del paso 8.</p><div class="inputs" data-fields="headFlat"></div></div></li>
+  </ol>
+  <div id="r6flat"></div>
+  <h3>6.2 Volumen de las cámaras</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t6b"><div class="tt"><span>Prepara la culata para cubicar</span></div><div class="tb"><p>Válvulas montadas con sus muelles y una bujía apretada en la cámara. Culata nivelada con el nivel de burbuja, cámara hacia arriba. Una placa de metacrilato con un agujero de 5 mm, sellada con una capa fina de grasa.</p></div></li>
+    <li class="task" data-t="t6c"><div class="tt"><span>Llena cada cámara con la bureta</span></div><div class="tb"><p>Con aceite fino o alcohol coloreado, hasta que el líquido toque la placa sin burbujas. Apunta los cc. Si una cámara pierde líquido, revisa el asiento de esa válvula.</p><div data-grid="cc"></div></div></li>
+  </ol>
+  <div id="r6cc"></div>
+  <h3>6.3 Válvulas y guías</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t6d"><div class="tt"><span>Holgura de cada válvula en su guía</span></div><div class="tb"><p>Válvula levantada unos 10 mm, comparador en el borde de la cabeza: mueve de lado a lado. La holgura es aproximadamente la mitad de lo que marca. O bien micrómetro en el vástago y alexómetro de pequeños diámetros en la guía.</p><div class="inputs" data-fields="guideRule"></div><div data-grid="guides"></div></div></li>
+  </ol>
+  <div id="r6guides"></div>
+  <h3>6.4 Muelles de válvula</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t6e"><div class="tt"><span>Mide la altura instalada de cada muelle</span></div><div class="tb"><p>Con la válvula, la copela y los semiconos montados, sin muelle: calibre entre el asiento del muelle en la culata y la copela. Con los datos del fabricante del muelle se comprueba que no llega a bloque con la alzada de la leva.</p><div class="inputs" data-fields="springSpec"></div><div data-grid="springs"></div></div></li>
+  </ol>
+  <div id="r6springs"></div>
+</section>
+
+<!-- 7 -->
+<section class="step" id="s7">
+  <h2><span class="n">7</span>Árboles de levas y calado</h2>
+  <p>Se cala con un disco graduado en el cigüeñal: primero se busca el punto muerto superior (PMS) real y luego se mide cuándo abre y cierra cada válvula, para comparar con la ficha de la leva y corregir.</p>
+  <h3>7.1 Ficha de la leva</h3>
+  <div class="inputs" data-fields="camCard"></div>
+  <h3>7.2 PMS real con tope</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t7a"><div class="tt"><span>Monta el disco graduado y un puntero fijo</span></div><div class="tb"><p>Disco en el cigüeñal, puntero (un alambre rígido) atornillado al bloque. Pon el puntero en 0 con el pistón 1 más o menos arriba.</p></div></li>
+    <li class="task" data-t="t7b"><div class="tt"><span>Busca el PMS con un tope en el cilindro 1</span></div><div class="tb"><p>Con un tope enroscado en el agujero de la bujía, gira a mano en el sentido de giro hasta que el pistón toque el tope y lee el disco (lectura A). Gira al revés hasta que toque y lee otra vez (lectura B). El PMS real está justo en medio.</p><div class="inputs" data-fields="tdc"></div></div></li>
+  </ol>
+  <div id="r7tdc"></div>
+  <h3>7.3 Medida de apertura y cierre</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t7c"><div class="tt"><span>Comparador sobre el empujador del cilindro 1</span></div><div class="tb"><p>Sobre el empujador de admisión y luego sobre el de escape. Gira siempre en el sentido de giro (si te pasas, da otra vuelta entera) y apunta los grados cuando la válvula está levantada la alzada de referencia de la ficha (normalmente 1 mm).</p><div class="inputs" data-fields="camMeas"></div></div></li>
+  </ol>
+  <figure class="fig" style="max-width:420px"><svg id="figCam" viewBox="0 0 420 300" role="img" aria-label="Diagrama de distribución con apertura y cierre de admisión y escape"></svg><figcaption>Diagrama de distribución medido: admisión en azul, escape en ámbar. La zona donde se solapan junto al PMS es el cruce.</figcaption></figure>
+  <div id="r7cam"></div>
+  <h3>7.4 Holgura válvula-pistón</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t7d"><div class="tt"><span>Plastilina en la cabeza del pistón 1</span></div><div class="tb"><p>Una capa de unos 5 mm en las zonas de las válvulas, con un poco de aceite para que no se pegue. Monta la culata con la junta usada o una igual, aprieta con cuatro tornillos, cala la distribución y gira dos vueltas a mano. Desmonta, corta la plastilina por la marca más profunda y mide el espesor con el calibre.</p><div class="inputs" data-fields="p2v"></div></div></li>
+  </ol>
+  <div id="r7p2v"></div>
+  <h3>7.5 Juego de válvulas</h3>
+  <div class="inputs" data-fields="lashMode"></div>
+  <div id="lashBox">
+    <ol class="tasks">
+      <li class="task" data-t="t7e"><div class="tt"><span>Mide el juego de cada válvula con la leva de espaldas</span></div><div class="tb"><p>Con la parte baja de la leva contra el empujador, galgas entre leva y empujador. Apunta el juego medido y el espesor de la pastilla que lleva; la página dice qué pastilla poner.</p><div class="inputs" data-fields="lashSpec"></div><div data-grid="lash"></div></div></li>
+    </ol>
+    <div id="r7lash"></div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="step" id="s8">
+  <h2><span class="n">8</span>Compresión y squish</h2>
+  <p>Con las piezas definitivas se calcula la relación de compresión de cada cilindro y el squish (la distancia mínima entre el pistón y la culata en el PMS). Usa los cc de las cámaras (6.2), el pistón (5.1) y el diámetro final (3.2).</p>
+  <h3>8.1 Altura del pistón y junta</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t8a"><div class="tt"><span>Mide la altura de cada pistón en el PMS</span></div><div class="tb"><p>Comparador a cero sobre el borde de la camisa, pistón en PMS. Mide en los dos lados del bulón y apunta la media. Positivo = el pistón queda por debajo del borde.</p><div data-grid="deck"></div><div class="inputs" data-fields="gasket"></div></div></li>
+  </ol>
+  <h3>8.2 Compresión y squish de cada cilindro</h3>
+  <div id="r8cr"></div>
+  <h3>8.3 Objetivo de compresión</h3>
+  <div class="inputs" data-fields="crTarget"></div>
+  <div id="r8target"></div>
+  <h3>8.4 Compresión dinámica</h3>
+  <p>La compresión real empieza cuando cierra la admisión, no en el punto muerto inferior. Es la que manda en la detonación con gasolina de 98.</p>
+  <div class="inputs" data-fields="dcr"></div>
+  <div id="r8dcr"></div>
+</section>
+
+<!-- 9 -->
+<section class="step" id="s9">
+  <h2><span class="n">9</span>Límites mecánicos</h2>
+  <p>Con la carrera, la biela y el peso de los conjuntos (5.3) se comprueba hasta dónde se puede subir de vueltas.</p>
+  <h3>9.1 Velocidad y aceleración del pistón</h3>
+  <div id="r9"></div>
+  <h3>9.2 Muelles frente al régimen</h3>
+  <div id="r9spring"></div>
+</section>
+
+<!-- 10 -->
+<section class="step" id="s10">
+  <h2><span class="n">10</span>Montaje guiado</h2>
+  <p>En orden. Cada tarea tiene su par: escríbelo del manual o del fabricante de la pieza (tornillería ARP, bielas…) y márcala cuando esté hecha. Todo limpio y aceitado.</p>
+  <h3>10.1 Cigüeñal</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t10a"><div class="tt"><span>Cojinetes de bancada en el bloque y en los sombreretes</span></div><div class="tb"><p>Secos por detrás, aceite de montaje por delante. Las arandelas de empuje con las ranuras hacia el cigüeñal.</p></div></li>
+    <li class="task" data-t="t10b"><div class="tt"><span>Cigüeñal y sombreretes de bancada, del centro hacia fuera</span></div><div class="tb"><div class="inputs" data-fields="tq1"></div><p>Gira el cigüeñal a mano después de apretar cada sombrerete: si se endurece, para y busca por qué.</p></div></li>
+  </ol>
+  <h3>10.2 Pistones y bielas</h3>
+  <figure class="fig" style="max-width:300px"><svg id="figRing" viewBox="0 0 300 220" role="img" aria-label="Posición de las aberturas de los segmentos vista desde arriba del pistón"></svg><figcaption>Aberturas de los segmentos repartidas a unos 120°, ninguna en la línea del bulón ni en el lado de empuje. Confirma con las instrucciones del fabricante.</figcaption></figure>
+  <ol class="tasks">
+    <li class="task" data-t="t10c"><div class="tt"><span>Monta cada pistón en su biela con su bulón</span></div><div class="tb"><p id="assyText">Según el plan de equilibrado (5.3): cada pistón con el bulón que le ha tocado. Flecha o marca del pistón hacia la distribución. Clips con la abertura hacia arriba o abajo, nunca hacia la ranura de extracción.</p></div></li>
+    <li class="task" data-t="t10d"><div class="tt"><span>Segmentos con las aberturas repartidas</span></div><div class="tb"><p>Cada juego en su pistón (los ajustaste en su cilindro en 5.4). Marca «TOP» hacia arriba.</p></div></li>
+    <li class="task" data-t="t10e"><div class="tt"><span>Mete cada pistón en su cilindro con el cincho</span></div><div class="tb"><p>Bandeja roja al cilindro 1, verde al 2, amarilla al 3 y azul al 4. Protege las muñequillas con tubo de goma en los espárragos o tornillos.</p><div class="inputs" data-fields="tq2"></div></div></li>
+  </ol>
+  <h3>10.3 Culata</h3>
+  <figure class="fig" style="max-width:520px"><svg id="figHead" viewBox="0 0 520 170" role="img" aria-label="Orden típico de apriete de culata en espiral desde el centro"></svg><figcaption>Orden típico en espiral desde el centro hacia fuera. Compruébalo con el esquema del manual de tu versión antes de apretar.</figcaption></figure>
+  <ol class="tasks">
+    <li class="task" data-t="t10f"><div class="tt"><span>Junta nueva, planos limpios y roscas repasadas</span></div><div class="tb"><p>Roscas del bloque repasadas con macho y sopladas: el aceite o el agua en el fondo de un agujero falsea el par y puede reventar el bloque.</p></div></li>
+    <li class="task" data-t="t10g"><div class="tt"><span>Aprieta la culata por fases</span></div><div class="tb"><div class="inputs" data-fields="tq3"></div></div></li>
+  </ol>
+  <h3>10.4 Distribución y cierre</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t10h"><div class="tt"><span>Correa nueva, calado a los valores de 7.3</span></div><div class="tb"><p>Con las poleas regulables en la posición que salió del calado. Tensa al valor del fabricante, gira dos vueltas y vuelve a comprobar calado y tensión.</p><div class="inputs" data-fields="tq4"></div></div></li>
+    <li class="task" data-t="t10i"><div class="tt"><span>Bomba de aceite, cárter y tapas</span></div><div class="tb"><p>En rally el aceite se va a un lado en las curvas largas: cárter con deflectores o con compuertas y nivel en la marca alta.</p></div></li>
+  </ol>
+</section>
+
+<!-- 11 -->
+<section class="step" id="s11">
+  <h2><span class="n">11</span>Puesta en marcha y rodaje</h2>
+  <h3>11.1 Primer arranque</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t11a"><div class="tt"><span>Ceba el aceite sin bujías</span></div><div class="tb"><p>Sin bujías y sin inyección, da arranque en tandas de 10 segundos hasta que el manómetro marque presión. Así los cojinetes no arrancan en seco.</p></div></li>
+    <li class="task" data-t="t11b"><div class="tt"><span>Arranca y lleva a temperatura sin ralentí largo</span></div><div class="tb"><p>Entre 2000 y 3000 rpm variando, vigilando presión de aceite, temperatura y fugas. Comprueba el avance del encendido con la pistola estroboscópica.</p></div></li>
+  </ol>
+  <h3>11.2 Rodaje</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t11c"><div class="tt"><span>Asienta los segmentos con carga</span></div><div class="tb"><p>En banco de rodillos o en carretera: aceleraciones con carga media hasta unas 5000 rpm y dejar retener, sin ir a régimen constante. Cambia aceite y filtro después del rodaje y mira si hay partículas.</p></div></li>
+  </ol>
+  <h3>11.3 Comprobación final</h3>
+  <ol class="tasks">
+    <li class="task" data-t="t11d"><div class="tt"><span>Compresión y fugas otra vez</span></div><div class="tb"><p>Igual que en el paso 1, para comparar.</p><div data-grid="comp2"></div><div data-grid="leak2"></div></div></li>
+  </ol>
+  <div id="r11"></div>
+</section>
+
+<!-- 12 -->
+<section class="step" id="s12">
+  <h2><span class="n">12</span>Ficha del motor</h2>
+  <h3>12.1 Ficha</h3>
+  <p>Todo lo que se ha medido y cómo ha quedado. Los valores en gris son de ejemplo y aún no los has cambiado.</p>
+  <div class="scroll" id="sheet"></div>
+  <h3>12.2 Guardar, copiar y empezar otro motor</h3>
+  <p class="hint" id="saveHint">Tus datos se guardan solos en este navegador.</p>
+  <div class="btnrow">
+    <button type="button" id="copySheet">Copiar la ficha como texto</button>
+    <button type="button" id="exportData">Ver mis datos (para guardar)</button>
+    <button type="button" id="importData">Cargar los datos pegados</button>
+    <button type="button" id="newEngine">Empezar un motor nuevo</button>
+  </div>
+  <div class="note warn" id="newConfirm" hidden><p><b>¿Vaciar todas las medidas y tareas?</b> Se borran los valores de ejemplo y lo que hayas escrito; los límites del fabricante y los datos de las piezas se quedan.</p><div class="btnrow"><button type="button" id="newYes" class="primary">Sí, vaciar</button><button type="button" id="newNo">Cancelar</button></div></div>
+  <textarea id="dataBox" rows="6" spellcheck="false" hidden placeholder="Aquí aparecen tus datos. Para recuperar un motor, pega aquí sus datos y pulsa «Cargar los datos pegados»."></textarea>
+  <p class="hint" style="max-width:72ch">Los límites y tolerancias de fábrica salen del manual de taller de tu versión; los de pistones, segmentos, levas y muelles, del fabricante de cada pieza. Los valores orientativos de esta página son reglas de taller generales: compruébalos siempre con los de tus piezas.</p>
+</section>
+
+</main>
+</div>
+
+<footer style="max-width:1120px;margin:30px auto 0;padding:18px 20px 30px;border-top:1px solid var(--line);color:var(--muted);font-size:.86rem;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span><a href="../" style="color:inherit">Taller Klepa</a> · creado por <a href="https://github.com/adriancast" style="color:inherit">adriancast</a></span><span>Licencia <a href="https://creativecommons.org/licenses/by/4.0/deed.es" rel="license" style="color:inherit">CC BY 4.0</a>: puedes usarlo y adaptarlo citando al autor.</span></footer>
+<div class="nextbar" role="status" aria-live="polite"><div class="in"><div class="bar"><i id="nbBar"></i></div><div class="txt" id="nbTxt"></div><span class="cnt" id="nbCnt"></span><button type="button" id="nbGo" class="primary">Ir</button></div></div>
+
+<script>
+(function () {
+'use strict';
+const $ = id => document.getElementById(id);
+const nf = (x, d = 1) => Number.isFinite(x) ? x.toLocaleString('es-ES', {minimumFractionDigits: d, maximumFractionDigits: d}) : '–';
+const sg = (x, d = 1) => Number.isFinite(x) ? (x > 0 ? '+' : x < 0 ? '−' : '') + nf(Math.abs(x), d) : '–';
+const PI4 = Math.PI / 4;
+const CYL = [
+  {n: 1, name: 'roja', Name: 'Roja', cls: 'c1'}, {n: 2, name: 'verde', Name: 'Verde', cls: 'c2'},
+  {n: 3, name: 'amarilla', Name: 'Amarilla', cls: 'c3'}, {n: 4, name: 'azul', Name: 'Azul', cls: 'c4'}];
+const dot = i => `<span class="${CYL[i].cls}"><span class="tray-dot"></span></span>`;
+const tray = i => `<span class="${CYL[i].cls}"><span class="tray-dot"></span><span class="tname">bandeja ${CYL[i].name}</span></span>`;
+const chip = (cls, t) => `<span class="chip ${cls}">${t}</span>`;
+const band = (v, lo, hi) => !Number.isFinite(v) ? chip('na', 'sin dato') : (v >= lo && v <= hi) ? chip('ok', 'bien') : chip('bad', v < lo ? 'por debajo' : 'por encima');
+const lim = (v, max) => !Number.isFinite(v) ? chip('na', 'sin dato') : v <= max ? chip('ok', 'bien') : chip('bad', 'fuera de límite');
+
+/* ===================== valores ===================== */
+const V = {}, DEF = {}, EX = new Set();
+const KEY = 'tu5-prep-v1';
+const num = id => { const v = parseFloat(String(V[id] ?? '').replace(',', '.')); return Number.isFinite(v) ? v : NaN; };
+const is16 = () => V.ver !== '8';
+const VALVES = () => is16() ? [['A1', 'Admisión 1'], ['A2', 'Admisión 2'], ['E1', 'Escape 1'], ['E2', 'Escape 2']] : [['A', 'Admisión'], ['E', 'Escape']];
+function reg(id, def, ex) { if (!(id in DEF)) { DEF[id] = def === undefined ? '' : String(def); if (!(id in V)) V[id] = DEF[id]; } if (ex) EX.add(id); }
+
+/* ---------- campos sueltos: [id, etiqueta, ejemplo, paso, ayuda, opciones] ---------- */
+const FIELDS = {
+  engine: [['ver', 'Versión del motor', '16', 0, '', {sel: [['16', 'TU5J4 · 16 válvulas (Saxo VTS)'], ['8', 'TU5JP / TU5J2 · 8 válvulas (Saxo VTR)']]}],
+           ['engNo', 'Número de motor', 'NFX 10FX4L 1234567', 0, 'grabado en el bloque, junto a la caja', {text: 1, ex: 1}]],
+  target: [['km', 'Kilómetros del motor', 98000, 1000, 'km', {ex: 1}],
+           ['rpmMax', 'Régimen máximo previsto', 8500, 100, 'rpm · el corte de inyección que vas a usar']],
+  oil0: [['oilIdle', 'A ralentí, en caliente', 1.4, 0.1, 'bar', {ex: 1}], ['oil4k', 'A 4000 rpm, en caliente', 3.6, 0.1, 'bar', {ex: 1}]],
+  boreNom: [['boreNominal', 'Medida nominal del cilindro', 78.5, 0.01, 'mm · de serie 78,5'],
+            ['ovalLim', 'Ovalización máxima', 0.02, 0.005, 'mm · del manual'], ['taperLim', 'Conicidad máxima', 0.02, 0.005, 'mm · del manual']],
+  boreDecision: [['pistonD', 'Diámetro del pistón nuevo (en el punto de medida del fabricante)', 78.94, 0.005, 'mm · medido con micrómetro'],
+                 ['p2wMin', 'Holgura pistón-cilindro mínima', 0.05, 0.005, 'mm · del fabricante del pistón'],
+                 ['p2wMax', 'Holgura pistón-cilindro máxima', 0.07, 0.005, 'mm · del fabricante del pistón']],
+  deckFlat: [['fl1', 'A lo largo, lado admisión', 0.02, 0.01, 'mm', {ex: 1}], ['fl2', 'A lo largo, lado escape', 0.02, 0.01, 'mm', {ex: 1}],
+             ['fl3', 'Diagonal 1', 0.03, 0.01, 'mm', {ex: 1}], ['fl4', 'Diagonal 2', 0.02, 0.01, 'mm', {ex: 1}],
+             ['fl5', 'A lo ancho, entre 1 y 2', 0.01, 0.01, 'mm', {ex: 1}], ['fl6', 'A lo ancho, entre 3 y 4', 0.01, 0.01, 'mm', {ex: 1}],
+             ['deckFlatLim', 'Límite de planitud', 0.05, 0.01, 'mm · del manual']],
+  clearRule: [['clrMinK', 'Holgura mínima por mm de eje', 0.0008, 0.0001, 'mm/mm · regla de taller 0,001 mm por mm (0,001"/pulgada)'],
+              ['clrMaxK', 'Holgura máxima por mm de eje', 0.0012, 0.0001, 'mm/mm · o pon el rango del fabricante de los cojinetes'],
+              ['journalOvalLim', 'Ovalización máxima de apoyos y muñequillas', 0.005, 0.001, 'mm · del manual']],
+  axial: [['crankAxial', 'Juego axial del cigüeñal', 0.14, 0.01, 'mm', {ex: 1}],
+          ['axialMin', 'Juego axial mínimo', 0.07, 0.01, 'mm · del manual'], ['axialMax', 'Juego axial máximo', 0.27, 0.01, 'mm · del manual'],
+          ['sideMin', 'Juego lateral de biela mínimo', 0.15, 0.01, 'mm · del fabricante de la biela'], ['sideMax', 'Juego lateral de biela máximo', 0.40, 0.01, 'mm · del fabricante de la biela']],
+  pistonSpec: [['stroke', 'Carrera', 82, 0.1, 'mm · de serie 82'],
+               ['rodLen', 'Longitud de biela (entre centros)', 133.5, 0.1, 'mm · TU5J4 de serie 133,5; en los 8v compruébala'],
+               ['pVol', 'Volumen de la cabeza del pistón', -3.0, 0.1, 'cc · como lo da el fabricante: negativo = vaciado, positivo = cúpula']],
+  balRule: [['tolG', 'Tolerancia de equilibrado', 0.5, 0.1, 'g · entre el más ligero y el más pesado'],
+            ['maxCutP', 'Máximo a quitar en un pistón', 6, 0.5, 'g · pregunta al fabricante: en un forjado suele haber margen en los resaltes'],
+            ['maxCutR', 'Máximo a quitar en un extremo de biela', 4, 0.5, 'g · en los tetones de equilibrado']],
+  ringRule: [['k1', 'Primer segmento: abertura por mm de diámetro', 0.0045, 0.0001, 'mm/mm · orientativo para atmosférico; usa la tabla de tu fabricante'],
+             ['k2', 'Segundo segmento: abertura por mm de diámetro', 0.0050, 0.0001, 'mm/mm'],
+             ['oilMin', 'Rascador (láminas): abertura mínima', 0.38, 0.01, 'mm']],
+  headFlat: [['headFlatMax', 'Mayor galga que entra', 0.02, 0.01, 'mm', {ex: 1}], ['headFlatLim', 'Límite de planitud', 0.05, 0.01, 'mm · del manual'],
+             ['headMilled', 'Rebaje de culata hecho', 0, 0.05, 'mm · 0 si no se ha rectificado', {ex: 1}]],
+  guideRule: [['guideMin', 'Holgura mínima en la guía', 0.02, 0.005, 'mm · del manual o del fabricante de las válvulas'], ['guideMax', 'Holgura máxima en la guía', 0.06, 0.005, 'mm']],
+  springSpec: [['spRefH', 'Altura de referencia del muelle', 36.0, 0.1, 'mm · la altura a la que el fabricante da la carga'],
+               ['spRefLoad', 'Carga a esa altura', 280, 5, 'N'], ['spRate', 'Rigidez del muelle', 48, 1, 'N/mm'],
+               ['spBind', 'Altura a bloque (espiras juntas)', 22.5, 0.1, 'mm'], ['spMargin', 'Margen mínimo a bloque con la válvula abierta', 1.5, 0.1, 'mm · regla de taller 1,5 mm'],
+               ['spMinOpen', 'Carga mínima con la válvula abierta que pide la leva', 0, 10, 'N · 0 si el fabricante no la da']],
+  camCard: [['refLift', 'Alzada de referencia para medir', 1.0, 0.1, 'mm'],
+            ['liftInt', 'Alzada de válvula de admisión', 10.5, 0.1, 'mm'], ['liftExh', 'Alzada de válvula de escape', 10.0, 0.1, 'mm'],
+            ['cardICL', 'Centro de leva de admisión de la ficha', 106, 0.5, '° después del PMS'],
+            ['cardECL', 'Centro de leva de escape de la ficha', 110, 0.5, '° antes del PMS']],
+  tdc: [['tdcA', 'Lectura A (girando en el sentido de giro)', 31, 0.5, '° antes del 0', {ex: 1}],
+        ['tdcB', 'Lectura B (girando al revés)', 29, 0.5, '° después del 0', {ex: 1}]],
+  camMeas: [['ivo', 'Abre admisión', 22, 0.5, '° antes del PMS', {ex: 1}], ['ivc', 'Cierra admisión', 62, 0.5, '° después del PMI', {ex: 1}],
+            ['evo', 'Abre escape', 62, 0.5, '° antes del PMI', {ex: 1}], ['evc', 'Cierra escape', 20, 0.5, '° después del PMS', {ex: 1}]],
+  p2v: [['p2vInt', 'Admisión: espesor mínimo de plastilina', 2.4, 0.1, 'mm', {ex: 1}], ['p2vExh', 'Escape: espesor mínimo de plastilina', 2.9, 0.1, 'mm', {ex: 1}],
+        ['p2vMinInt', 'Mínimo admisión', 2.0, 0.1, 'mm · regla de taller'], ['p2vMinExh', 'Mínimo escape', 2.5, 0.1, 'mm · regla de taller']],
+  lashMode: [['lash', 'Empujadores', 'mec', 0, '', {sel: [['mec', 'Mecánicos con pastilla de reglaje'], ['hid', 'Hidráulicos (no hay que reglar)']]}]],
+  lashSpec: [['lashInt', 'Juego de admisión en frío', 0.20, 0.01, 'mm · de la ficha de la leva'], ['lashExh', 'Juego de escape en frío', 0.30, 0.01, 'mm · de la ficha de la leva']],
+  gasket: [['gBore', 'Diámetro interior de la junta', 81.0, 0.1, 'mm'], ['gThick', 'Espesor de la junta comprimida', 0.70, 0.01, 'mm · del fabricante de la junta']],
+  crTarget: [['crT', 'Relación de compresión objetivo', 12.0, 0.1, 'orientativo con 98: 11,5 a 12,5 según la compresión dinámica (8.4)']],
+  dcr: [['ivcCorr', 'Corrección del cierre a 1 mm al cierre real', 15, 1, '° · la válvula cierra del todo unos 15–20° después de pasar por 1 mm']],
+  tq1: [['tqMain', 'Par de bancada', '', 1, 'N·m · del manual'], ['tqMainAng', 'Ángulo después del par', '', 1, '° · si lo lleva']],
+  tq2: [['tqRod', 'Par de los tornillos de biela', '', 1, 'N·m · del fabricante de la biela'], ['tqRodAng', 'Ángulo o estiramiento', '', 1, '° o mm']],
+  tq3: [['tqHead1', 'Fase 1', '', 1, 'N·m'], ['tqHead2', 'Fase 2', '', 1, 'N·m o °'], ['tqHead3', 'Fase 3', '', 1, '° · del manual o del fabricante de los espárragos']],
+  tq4: [['tqCam', 'Par de las poleas de árbol', '', 1, 'N·m'], ['beltTen', 'Tensión de la correa', '', 1, 'unidades del tensiómetro o posición del tensor']]
+};
+
+/* ---------- tablas por cilindro ---------- */
+const sel = (opts) => ({sel: opts});
+const VIS = [['ok', 'Bien'], ['rayas', 'Rayas'], ['gripado', 'Gripado'], ['deto', 'Marcas de detonación'], ['carbon', 'Mucha carbonilla'], ['aceite', 'Restos de aceite']];
+const VISB = [['ok', 'Bien'], ['desg', 'Desgaste normal'], ['cobre', 'Se ve el cobre'], ['rayas', 'Rayados'], ['lado', 'Desgaste a un lado']];
+const LEAKW = [['', '—'], ['adm', 'Por la admisión'], ['esc', 'Por el escape'], ['carter', 'Por el cárter (segmentos)'], ['agua', 'Burbujas en el agua']];
+const GRIDS = {
+  comp: {rows: 'cyl', cols: [{k: 'v', l: 'Compresión (bar)', ex: [12.6, 12.9, 11.4, 12.7], st: 0.1}]},
+  comp2: {rows: 'cyl', cols: [{k: 'v', l: 'Compresión final (bar)', ex: ['', '', '', ''], st: 0.1}]},
+  leak: {rows: 'cyl', cols: [{k: 'p', l: 'Fuga (%)', ex: [4, 5, 14, 6], st: 1}, {k: 'w', l: 'Por dónde', ex: ['', '', 'esc', ''], o: LEAKW}]},
+  leak2: {rows: 'cyl', cols: [{k: 'p', l: 'Fuga final (%)', ex: ['', '', '', ''], st: 1}]},
+  visual: {rows: 'cyl', cols: [{k: 'p', l: 'Cabeza del pistón', ex: ['ok', 'ok', 'deto', 'carbon'], o: VIS}, {k: 'c', l: 'Camisa', ex: ['ok', 'ok', 'rayas', 'ok'], o: VIS}, {k: 'b', l: 'Cojinetes de biela', ex: ['desg', 'desg', 'cobre', 'desg'], o: VISB}]},
+  bore: {rows: 'cyl', cols: [
+    {k: 'tA', l: 'Arriba A', ex: [78.512, 78.515, 78.531, 78.514], st: 0.001}, {k: 'tB', l: 'Arriba B', ex: [78.524, 78.527, 78.548, 78.522], st: 0.001},
+    {k: 'mA', l: 'Centro A', ex: [78.508, 78.510, 78.522, 78.509], st: 0.001}, {k: 'mB', l: 'Centro B', ex: [78.515, 78.517, 78.534, 78.514], st: 0.001},
+    {k: 'bA', l: 'Abajo A', ex: [78.503, 78.505, 78.510, 78.504], st: 0.001}, {k: 'bB', l: 'Abajo B', ex: [78.506, 78.507, 78.515, 78.505], st: 0.001}]},
+  liner: {rows: 'cyl', cols: [{k: 'a', l: 'Punto 1 (mm)', ex: [0.06, 0.07, 0.05, 0.07], st: 0.01}, {k: 'b', l: 'Punto 2 (mm)', ex: [0.07, 0.07, 0.06, 0.08], st: 0.01}], extra: [['linMin', 'Saliente mínimo', 0.03, 0.01, 'mm · del manual'], ['linMax', 'Saliente máximo', 0.10, 0.01, 'mm · del manual'], ['linDiff', 'Diferencia máxima entre camisas vecinas', 0.05, 0.01, 'mm · del manual']]},
+  mains: {rows: ['Apoyo 1 (volante)', 'Apoyo 2', 'Apoyo 3', 'Apoyo 4', 'Apoyo 5 (distribución)'], title: 'Apoyos de bancada', cols: [{k: 'd', l: 'Diámetro medio (mm)', ex: [49.981, 49.979, 49.980, 49.978, 49.982], st: 0.001}, {k: 'o', l: 'Ovalización (mm)', ex: [0.002, 0.003, 0.002, 0.004, 0.002], st: 0.001}]},
+  pins: {rows: 'cyl', title: 'Muñequillas de biela', cols: [{k: 'd', l: 'Diámetro medio (mm)', ex: [44.985, 44.983, 44.984, 44.986], st: 0.001}, {k: 'o', l: 'Ovalización (mm)', ex: [0.002, 0.002, 0.006, 0.003], st: 0.001}]},
+  mainBore: {rows: ['Apoyo 1', 'Apoyo 2', 'Apoyo 3', 'Apoyo 4', 'Apoyo 5'], title: 'Bancada: interior con cojinetes apretados', cols: [{k: 'd', l: 'Interior (mm)', ex: [50.028, 50.031, 50.027, 50.034, 50.029], st: 0.001}]},
+  rodBore: {rows: 'cyl', title: 'Bielas: interior con cojinetes apretados', cols: [{k: 'd', l: 'Interior (mm)', ex: [45.030, 45.026, 45.034, 45.029], st: 0.001}]},
+  side: {rows: 'cyl', cols: [{k: 'v', l: 'Juego lateral (mm)', ex: [0.22, 0.25, 0.20, 0.24], st: 0.01}]},
+  weights: {rows: 'cyl', cols: [
+    {k: 'p', l: 'Pistón', ex: [249.6, 251.2, 248.9, 250.5], st: 0.1}, {k: 'b', l: 'Bulón', ex: [61.9, 62.6, 63.1, 62.2], st: 0.1},
+    {k: 's', l: 'Segmentos', ex: [21.4, 21.3, 21.5, 21.4], st: 0.1}, {k: 'c', l: 'Clips (los 2)', ex: [1.6, 1.6, 1.6, 1.6], st: 0.1},
+    {k: 'rt', l: 'Biela entera', ex: [548.2, 546.9, 549.6, 547.4], st: 0.1}, {k: 'rg', l: 'Extremo grande', ex: [398.5, 397.6, 399.9, 397.8], st: 0.1},
+    {k: 'rp', l: 'Extremo pequeño', ex: [149.7, 149.3, 149.7, 149.6], st: 0.1}]},
+  rings: {rows: 'cyl', cols: [{k: 'r1', l: '1.º segmento (mm)', ex: [0.34, 0.37, 0.31, 0.36], st: 0.01}, {k: 'r2', l: '2.º segmento (mm)', ex: [0.41, 0.40, 0.42, 0.36], st: 0.01}, {k: 'r3', l: 'Rascador (mm)', ex: [0.45, 0.42, 0.40, 0.47], st: 0.01}]},
+  cc: {rows: 'cyl', cols: [{k: 'v', l: 'Volumen de la cámara (cc)', ex: [31.2, 31.6, 31.3, 31.0], st: 0.1}]},
+  deck: {rows: 'cyl', cols: [{k: 'v', l: 'Pistón bajo el borde de la camisa (mm)', ex: [0.20, 0.18, 0.22, 0.19], st: 0.01}]}
+};
+/* tablas que dependen de la versión (16v / 8v) */
+function valveGrids() {
+  const vs = VALVES(), g = [0.030, 0.028, 0.034, 0.031, 0.027, 0.036, 0.040, 0.033], h = [36.4, 36.2, 36.5, 36.3, 36.0, 36.6, 36.4, 36.1];
+  GRIDS.guides = {rows: 'cyl', cols: vs.map(([k, l], j) => ({k, l: l + ' (mm)', ex: [0, 1, 2, 3].map(i => +(g[(i * 2 + j) % 8] + (j > 1 ? 0.006 : 0)).toFixed(3)), st: 0.001}))};
+  GRIDS.springs = {rows: 'cyl', cols: vs.map(([k, l], j) => ({k, l: l + ' (mm)', ex: [0, 1, 2, 3].map(i => h[(i * 3 + j) % 8]), st: 0.1}))};
+  const rows = [], lashEx = [], shimEx = [];
+  [0, 1, 2, 3].forEach(i => vs.forEach(([k, l], j) => { rows.push({i, k, l}); lashEx.push(k[0] === 'A' ? [0.18, 0.22, 0.20, 0.15][(i + j) % 4] : [0.30, 0.34, 0.27, 0.31][(i + j) % 4]); shimEx.push([2.80, 2.85, 2.75, 2.90][(i + 2 * j) % 4]); }));
+  GRIDS.lash = {rows: rows.map(r => ({cyl: r.i, label: `${CYL[r.i].n} · ${r.l}`, key: `${r.i}${r.k}`})), cols: [{k: 'm', l: 'Juego medido (mm)', ex: lashEx, st: 0.01}, {k: 's', l: 'Pastilla montada (mm)', ex: shimEx, st: 0.01}]};
+}
+
+/* ---------- generadores de HTML ---------- */
+function fieldHTML([id, label, def, st, hint, o = {}]) {
+  reg(id, def, o.ex);
+  const v = String(V[id] ?? '').replace(/"/g, '&quot;');
+  let ctl;
+  if (o.sel) ctl = `<select id="${id}">${o.sel.map(([k, t]) => `<option value="${k}"${String(V[id]) === k ? ' selected' : ''}>${t}</option>`).join('')}</select>`;
+  else ctl = `<input id="${id}" type="${o.text ? 'text' : 'number'}"${o.text ? '' : ` step="${st}"`} value="${v}"${o.ex ? ' class="ex"' : ''}>`;
+  return `<label>${label}${ctl}${hint ? `<span class="hint">${hint}</span>` : ''}</label>`;
+}
+function gridRows(g) { return g.rows === 'cyl' ? CYL.map((c, i) => ({cyl: i, label: `${c.n} · ${c.Name}`, key: String(i)})) : g.rows.map((r, i) => typeof r === 'string' ? {cyl: -1, label: r, key: String(i)} : r); }
+function gridHTML(key) {
+  const g = GRIDS[key], rows = gridRows(g);
+  const head = `<tr><th>${g.rows === 'cyl' || g.rows[0].cyl !== undefined ? 'Cilindro' : ''}</th>${g.cols.map(c => `<th class="r">${c.l}</th>`).join('')}${(g.res || []).map(r => `<th class="r">${r}</th>`).join('')}</tr>`;
+  const body = rows.map((r, ri) => `<tr class="${r.cyl >= 0 ? 'cy ' + CYL[r.cyl].cls : ''}"><th>${r.label}</th>${g.cols.map(c => {
+    const id = `${key}_${c.k}_${r.key}`; reg(id, c.ex ? c.ex[ri] : '', true);
+    if (c.o) return `<td><select id="${id}">${c.o.map(([k, t]) => `<option value="${k}"${String(V[id]) === k ? ' selected' : ''}>${t}</option>`).join('')}</select></td>`;
+    return `<td><input id="${id}" type="number" step="${c.st}" value="${String(V[id] ?? '')}" class="ex"></td>`;
+  }).join('')}</tr>`).join('');
+  return `${g.title ? `<h4>${g.title}</h4>` : ''}<div class="scroll"><table class="grid"><thead>${head}</thead><tbody>${body}</tbody></table></div>${g.extra ? `<div class="inputs">${g.extra.map(fieldHTML).join('')}</div>` : ''}`;
+}
+const G = (key, col, r) => num(`${key}_${col}_${r}`);
+const GV = (key, col, r) => V[`${key}_${col}_${r}`];
+
+function renderInputs() {
+  valveGrids();
+  document.querySelectorAll('[data-fields]').forEach(el => { el.innerHTML = FIELDS[el.dataset.fields].map(fieldHTML).join(''); });
+  document.querySelectorAll('[data-grid]').forEach(el => { el.innerHTML = gridHTML(el.dataset.grid); });
+  document.querySelectorAll('li.task').forEach(li => {
+    const id = 'd_' + li.dataset.t, tt = li.querySelector('.tt');
+    if (!tt.querySelector('label.done')) tt.insertAdjacentHTML('beforeend', `<label class="done"><input type="checkbox" id="${id}"> Hecho</label>`);
+    $(id).checked = V[id] === '1';
+  });
+  markEdited();
+}
+function markEdited() {
+  document.querySelectorAll('main input[id], main select[id]').forEach(el => {
+    if (el.type === 'checkbox' || el.closest('#balOps')) return;
+    const ed = el.id in DEF && String(V[el.id] ?? '') !== DEF[el.id];
+    if (el.classList.contains('ex')) el.classList.toggle('mine', ed);
+    else { const h = el.closest('label'); if (h) h.classList.toggle('edited', ed); }
+  });
+}
+
+/* ===================== dibujos ===================== */
+function drawStatic() {
+  $('figBore').innerHTML = `
+    <rect x="40" y="20" width="120" height="190" class="svg-fill" rx="4"/>
+    <rect x="52" y="20" width="96" height="190" fill="var(--surface)" stroke="var(--ink)"/>
+    ${[[45, 'Arriba'], [115, 'Centro'], [185, 'Abajo']].map(([y, t]) => `<line x1="52" y1="${y}" x2="148" y2="${y}" class="svg-acc" stroke-width="2.5" stroke-dasharray="6 4"/><text x="170" y="${y + 4}" class="svg-t">${t}</text>`).join('')}
+    <text x="100" y="14" text-anchor="middle" class="svg-m">camisa vista de lado</text>
+    <circle cx="380" cy="115" r="78" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/>
+    <line x1="290" y1="115" x2="470" y2="115" class="svg-acc" stroke-width="2.5"/><text x="476" y="119" class="svg-t">A</text>
+    <line x1="380" y1="25" x2="380" y2="205" stroke="var(--warn)" stroke-width="2.5"/><text x="386" y="30" class="svg-t">B</text>
+    <text x="380" y="222" text-anchor="middle" class="svg-m">desde arriba · eje del cigüeñal ↔</text>`;
+  $('figRod').innerHTML = `
+    <line x1="20" y1="140" x2="540" y2="140" stroke="var(--line)" stroke-width="2"/>
+    <rect x="60" y="104" width="120" height="36" rx="4" class="svg-fill"/><text x="120" y="127" text-anchor="middle" class="svg-t">báscula</text>
+    <rect x="410" y="96" width="24" height="44" class="svg-fill"/><text x="422" y="160" text-anchor="middle" class="svg-m">soporte</text>
+    <circle cx="120" cy="78" r="26" fill="var(--surface)" stroke="var(--ink)" stroke-width="2.5"/><circle cx="120" cy="78" r="15" fill="none" stroke="var(--ink)"/>
+    <circle cx="422" cy="82" r="13" fill="var(--surface)" stroke="var(--ink)" stroke-width="2.5"/><circle cx="422" cy="82" r="6" fill="none" stroke="var(--ink)"/>
+    <path d="M144 68 L410 77 M144 88 L410 87" stroke="var(--ink)" stroke-width="2.5"/>
+    <text x="120" y="40" text-anchor="middle" class="svg-t">extremo grande</text><text x="422" y="52" text-anchor="middle" class="svg-t">extremo pequeño</text>
+    <text x="280" y="62" text-anchor="middle" class="svg-m">biela horizontal: comprueba con nivel</text>`;
+  const pts = [[0, 'Primero'], [120, 'Segundo'], [240, 'Rascador']];
+  $('figRing').innerHTML = `<circle cx="150" cy="110" r="84" fill="var(--surface)" stroke="var(--ink)" stroke-width="2.5"/>
+    <line x1="56" y1="110" x2="244" y2="110" stroke="var(--line)" stroke-width="6"/><text x="150" y="128" text-anchor="middle" class="svg-m">bulón</text>
+    ${pts.map(([a, t], k) => { const r = 84, an = (a - 60) * Math.PI / 180, x = 150 + r * Math.cos(an), y = 110 + r * Math.sin(an); return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="6" fill="${['var(--t1)', 'var(--t2)', 'var(--t4)'][k]}"/><text x="${(150 + (r + 18) * Math.cos(an)).toFixed(1)}" y="${(114 + (r + 16) * Math.sin(an)).toFixed(1)}" text-anchor="middle" class="svg-t">${t}</text>`; }).join('')}
+    <text x="150" y="16" text-anchor="middle" class="svg-m">distribución ↑</text>`;
+  const order = [[8, 4, 1, 5, 9], [10, 6, 2, 3, 7]];
+  $('figHead').innerHTML = `<rect x="20" y="30" width="480" height="110" rx="10" class="svg-fill"/>
+    ${[0, 1, 2, 3].map(i => `<circle cx="${80 + i * 120}" cy="85" r="34" fill="var(--surface)" stroke="var(--line)" stroke-width="2"/>`).join('')}
+    ${order.map((row, r) => row.map((n, c) => { const x = 40 + c * 110, y = r ? 124 : 46; return `<circle cx="${x}" cy="${y}" r="13" fill="var(--accent)"/><text x="${x}" y="${y + 4}" text-anchor="middle" style="fill:var(--surface);font:700 12px var(--body)">${n}</text>`; }).join('')).join('')}
+    <text x="260" y="20" text-anchor="middle" class="svg-m">admisión · orden típico 1 → 10 (comprueba el de tu manual)</text><text x="260" y="162" text-anchor="middle" class="svg-m">escape</text>`;
+  ['figBore', 'figRod', 'figRing', 'figHead'].forEach(id => fixVars($(id)));
+  $('trayLegend').innerHTML = CYL.map((c, i) => `<div class="tray ${c.cls}"><h5>Bandeja ${c.name}<small>cil. ${c.n}</small></h5><div class="it"><span>${i === 0 ? 'lado volante' : i === 3 ? 'lado distribución' : 'centro'}</span><b>${c.n} ${c.n > 1 ? 'puntos' : 'punto'}</b></div></div>`).join('');
+}
+function fixVars(svg) { svg.querySelectorAll('[fill^="var("],[stroke^="var("]').forEach(el => { ['fill', 'stroke'].forEach(a => { const v = el.getAttribute(a); if (v && v.startsWith('var(')) { el.style[a] = v; el.removeAttribute(a); } }); }); }
+function drawCam(r) {
+  const cx = 210, cy = 150, el = $('figCam');
+  if (!r.ok) { el.innerHTML = `<text x="210" y="150" text-anchor="middle" class="svg-m">Faltan medidas de 7.3</text>`; return; }
+  const P = (deg, rad) => { const a = (deg - 90) * Math.PI / 180; return [cx + rad * Math.cos(a), cy + rad * Math.sin(a)]; };
+  const arc = (a0, a1, rad, col, w) => { const [x0, y0] = P(a0, rad), [x1, y1] = P(a1, rad), large = (a1 - a0) % 360 > 180 ? 1 : 0; return `<path d="M${x0.toFixed(1)} ${y0.toFixed(1)} A${rad} ${rad} 0 ${large} 1 ${x1.toFixed(1)} ${y1.toFixed(1)}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/>`; };
+  const lab = (deg, rad, t, col) => { const [x, y] = P(deg, rad); return `<text x="${x.toFixed(1)}" y="${(y + 4).toFixed(1)}" text-anchor="middle" style="fill:${col};font:600 11px var(--body)">${t}</text>`; };
+  el.innerHTML = `<circle cx="${cx}" cy="${cy}" r="120" fill="none" stroke="var(--line)"/>
+    <line x1="${cx}" y1="${cy - 132}" x2="${cx}" y2="${cy + 132}" stroke="var(--line)" stroke-dasharray="4 4"/>
+    <text x="${cx}" y="12" text-anchor="middle" class="svg-t">PMS</text><text x="${cx}" y="296" text-anchor="middle" class="svg-t">PMI</text>
+    ${arc(-r.ivo, 180 + r.ivc, 100, 'var(--accent)', 9)}${arc(180 - r.evo, 360 + r.evc, 78, 'var(--warn)', 9)}
+    ${lab(-r.ivo, 122, 'AA ' + nf(r.ivo, 0) + '°', 'var(--accent)')}${lab(180 + r.ivc, 122, 'CA ' + nf(r.ivc, 0) + '°', 'var(--accent)')}
+    ${lab(180 - r.evo, 58, 'AE ' + nf(r.evo, 0) + '°', 'var(--warn)')}${lab(360 + r.evc, 58, 'CE ' + nf(r.evc, 0) + '°', 'var(--warn)')}
+    <text x="${cx}" y="${cy + 4}" text-anchor="middle" class="svg-m">cruce ${nf(r.ovl, 0)}°</text>`;
+  fixVars(el);
+}
+
+/* ===================== cálculos y resultados ===================== */
+const arr = (key, col, n = 4) => Array.from({length: n}, (_, r) => G(key, col, r));
+const valid = a => a.filter(Number.isFinite);
+const maxA = a => valid(a).length ? Math.max(...valid(a)) : NaN, minA = a => valid(a).length ? Math.min(...valid(a)) : NaN;
+const avgA = a => valid(a).length ? valid(a).reduce((s, x) => s + x, 0) / valid(a).length : NaN;
+const cylRow = (i, cells) => `<tr class="cy ${CYL[i].cls}"><th>${CYL[i].n} · ${CYL[i].Name}</th>${cells.map(c => `<td class="res">${c}</td>`).join('')}</tr>`;
+const tbl = (heads, rows) => `<div class="scroll"><table class="grid"><thead><tr>${heads.map((h, k) => `<th${k ? ' class="r"' : ''}>${h}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>`;
+const note = (cls, html) => `<div class="note ${cls}">${html}</div>`;
+let R = {};
+const MODEL = {};
+
+function compute() {
+  R = {};
+  // 1.2
+  const cp = arr('comp', 'v'), cmax = maxA(cp), cmin = minA(cp), spread = (cmax - cmin) / cmax * 100;
+  const low = cp.indexOf(cmin);
+  $('r1comp').innerHTML = valid(cp).length < 2 ? '' : note(spread <= 10 ? 'ok' : 'bad', `<p>Media <b>${nf(avgA(cp), 1)} bar</b> · diferencia entre el mejor y el peor <b>${nf(spread, 0)} %</b> ${spread <= 10 ? chip('ok', 'igualados') : spread <= 15 ? chip('warn', 'algo desigual') : chip('bad', 'desigual')}.</p>${spread > 10 ? `<p>El cilindro ${CYL[low].n} (${tray(low)}) es el más bajo. La prueba de fugas (1.3) dirá si son segmentos, válvulas o junta.</p>` : '<p>Regla de taller: hasta un 10 % de diferencia entre cilindros es normal.</p>'}`);
+  // 1.3
+  const WH = {adm: 'la válvula de admisión no cierra bien (asiento o válvula)', esc: 'la válvula de escape no cierra bien (asiento o válvula quemada)', carter: 'pasa por los segmentos o la camisa está desgastada', agua: 'junta de culata, culata o camisa fisurada'};
+  const lk = arr('leak', 'p'), lrows = [];
+  lk.forEach((p, i) => { if (!Number.isFinite(p)) return; const w = GV('leak', 'w', i); lrows.push(`<p>${tray(i)}: ${nf(p, 0)} % ${p < 5 ? chip('ok', 'bien') : p <= 10 ? chip('warn', 'regular') : chip('bad', 'alta')}${w && WH[w] ? ` · ${WH[w]}` : p > 10 ? ' · escucha por dónde sale y apúntalo' : ''}.</p>`); });
+  $('r1leak').innerHTML = lrows.length ? note(lk.some(p => p > 10) ? 'bad' : 'ok', lrows.join('') + '<p class="hint">Orientativo para un motor de competición: menos de un 5 % bien, de 5 a 10 % regular, más de 10 % hay que buscar la causa.</p>') : '';
+  // 1.4
+  const oi = num('oilIdle'), o4 = num('oil4k');
+  $('r1oil').innerHTML = !Number.isFinite(o4) ? '' : note(o4 >= 2.8 && oi >= 1 ? 'ok' : 'warn', `<p>A 4000 rpm: <b>${nf(o4, 1)} bar</b> ${o4 >= 2.8 ? chip('ok', 'bien') : chip('warn', 'baja')} · a ralentí <b>${nf(oi, 1)} bar</b> ${oi >= 1 ? chip('ok', 'bien') : chip('warn', 'baja')}.</p><p class="hint">Regla de taller: unos 0,7 bar por cada 1000 rpm en caliente. Si es baja, sospecha de holguras de cojinetes (paso 4) o de la bomba.</p>`);
+  // 2.4
+  const vis = []; [0, 1, 2, 3].forEach(i => { const f = []; ['p', 'c', 'b'].forEach((k, j) => { const v = GV('visual', k, i), list = j < 2 ? VIS : VISB; if (v && v !== 'ok' && !(j === 2 && v === 'desg')) f.push(`${['pistón', 'camisa', 'cojinetes'][j]}: ${list.find(x => x[0] === v)[1].toLowerCase()}`); }); if (f.length) vis.push(`<p>${tray(i)} · ${f.join(' · ')}</p>`); });
+  $('r2vis').innerHTML = vis.length ? note('warn', vis.join('') + '<p class="hint">Marcas de detonación: revisa avance, mezcla y compresión de ese cilindro (paso 8). Cojinete con el cobre visto: falta de aceite o holgura excesiva (paso 4).</p>') : '';
+  // 3.1
+  const nom = num('boreNominal'), oL = num('ovalLim'), tL = num('taperLim');
+  const BR = [0, 1, 2, 3].map(i => { const v = ['tA', 'tB', 'mA', 'mB', 'bA', 'bB'].map(k => G('bore', k, i)); const ov = Math.max(...[[0, 1], [2, 3], [4, 5]].map(([a, b]) => Math.abs(v[a] - v[b]))); const tp = Math.max(Math.abs(v[0] - v[4]), Math.abs(v[1] - v[5])); return {max: maxA(v), ov, tp, ok: v.every(Number.isFinite)}; });
+  R.boreMax = maxA(BR.map(b => b.max));
+  $('r3bore').innerHTML = tbl(['Cilindro', 'Mayor medida', 'Desgaste sobre nominal', 'Ovalización', 'Conicidad', ''], BR.map((b, i) => cylRow(i, b.ok ? [nf(b.max, 3), sg(b.max - nom, 3), nf(b.ov, 3), nf(b.tp, 3), b.ov <= oL && b.tp <= tL ? chip('ok', 'dentro de límite') : chip('bad', 'fuera de límite')] : ['–', '–', '–', '–', chip('na', 'faltan medidas')])));
+  // 3.2
+  const pd = num('pistonD'), cmid = (num('p2wMin') + num('p2wMax')) / 2, fin = pd + cmid;
+  R.boreFinal = Number.isFinite(fin) ? fin : nom;
+  $('r3dec').innerHTML = !Number.isFinite(fin) ? '' : note('acc', `<p><strong class="lead">Medida final del cilindro: ${nf(fin, 3)} mm</strong> (pistón ${nf(pd, 3)} + holgura ${nf(cmid, 3)}). Rectificar dejando unos 0,02–0,03 mm y terminar con bruñido a esa medida, con el pistón de cada cilindro a mano.</p>
+    ${BR.map((b, i) => !b.ok ? '' : `<p>${tray(i)}: hay que quitar <b>${nf(fin - b.max, 3)} mm</b> en diámetro ${fin - b.max < 0 ? chip('bad', 'ya está por encima: camisa nueva o más sobremedida') : fin - b.max < 0.02 ? chip('warn', 'poco material para limpiar el desgaste') : chip('ok', 'limpia el desgaste')}</p>`).join('')}`);
+  // 3.3
+  const lm = num('linMin'), lM = num('linMax'), ld = num('linDiff');
+  const LN = [0, 1, 2, 3].map(i => (G('liner', 'a', i) + G('liner', 'b', i)) / 2);
+  $('r3liner').innerHTML = tbl(['Cilindro', 'Saliente medio (mm)', 'Diferencia con la siguiente', ''], LN.map((v, i) => { const dn = i < 3 ? Math.abs(v - LN[i + 1]) : NaN; return cylRow(i, [nf(v, 3), i < 3 ? nf(dn, 3) : '—', !Number.isFinite(v) ? chip('na', 'sin dato') : (v < lm || v > lM) ? chip('bad', 'fuera de rango') : (i < 3 && dn > ld) ? chip('warn', 'diferencia alta') : chip('ok', 'bien')]); }));
+  // 3.4
+  const fl = maxA(['fl1', 'fl2', 'fl3', 'fl4', 'fl5', 'fl6'].map(num));
+  $('r3flat').innerHTML = Number.isFinite(fl) ? `<p>Mayor separación: <b>${nf(fl, 2)} mm</b> ${lim(fl, num('deckFlatLim'))}</p>` : '';
+  // 4
+  const jo = num('journalOvalLim'), mainsD = arr('mains', 'd', 5), pinsD = arr('pins', 'd');
+  const jr = (lbl, d, o) => `<tr><th>${lbl}</th><td class="res">${nf(d, 3)}</td><td class="res">${nf(o, 3)}</td><td class="res">${lim(o, jo)}</td></tr>`;
+  $('r4journal').innerHTML = `<div class="scroll"><table class="grid"><thead><tr><th>Eje</th><th class="r">Diámetro</th><th class="r">Ovalización</th><th class="r"></th></tr></thead><tbody>${mainsD.map((d, r) => jr('Apoyo ' + (r + 1), d, G('mains', 'o', r))).join('')}${pinsD.map((d, r) => jr(`Muñequilla ${CYL[r].n} (${CYL[r].name})`, d, G('pins', 'o', r))).join('')}</tbody></table></div>`;
+  const kmn = num('clrMinK'), kmx = num('clrMaxK');
+  const crow = (lbl, b, d, cls) => { const c = b - d, lo = d * kmn, hi = d * kmx; return {c, html: `<tr class="${cls || ''}"><th>${lbl}</th><td class="res">${nf(c, 3)}</td><td class="res">${nf(lo, 3)} – ${nf(hi, 3)}</td><td class="res">${band(c, lo, hi)}</td></tr>`}; };
+  const mc = mainsD.map((d, r) => crow('Apoyo ' + (r + 1), G('mainBore', 'd', r), d)), rc = pinsD.map((d, r) => crow(`Biela ${CYL[r].n}`, G('rodBore', 'd', r), d, 'cy ' + CYL[r].cls));
+  R.clr = {main: mc.map(x => x.c), rod: rc.map(x => x.c)};
+  const bad4 = mc.concat(rc).filter(x => Number.isFinite(x.c) && x.html.includes('chip bad')).length;
+  $('r4clear').innerHTML = `<div class="scroll"><table class="grid"><thead><tr><th>Holgura</th><th class="r">Medida (mm)</th><th class="r">Objetivo (mm)</th><th class="r"></th></tr></thead><tbody>${mc.map(x => x.html).join('')}${rc.map(x => x.html).join('')}</tbody></table></div>` +
+    (bad4 ? note('bad', `<p>${bad4} holgura${bad4 > 1 ? 's' : ''} fuera del objetivo. Corrígela con cojinetes de otra clase de espesor, o rectificando el eje a la siguiente medida y con cojinetes de sobremedida. Vuelve a medir después.</p>`) : '');
+  const ax = num('crankAxial'), sMin = num('sideMin'), sMax = num('sideMax');
+  $('r4axial').innerHTML = `<p>Juego axial del cigüeñal: <b>${nf(ax, 2)} mm</b> ${band(ax, num('axialMin'), num('axialMax'))}${ax > num('axialMax') ? ' · cambia las arandelas de empuje por otras más gruesas' : ''}</p>` + [0, 1, 2, 3].map(i => `<p>${tray(i)} · juego lateral ${nf(G('side', 'v', i), 2)} mm ${band(G('side', 'v', i), sMin, sMax)}</p>`).join('');
+  // 5
+  balance();
+  rings();
+  // 6
+  const hf = num('headFlatMax');
+  $('r6flat').innerHTML = Number.isFinite(hf) ? `<p>Planitud de la culata: <b>${nf(hf, 2)} mm</b> ${lim(hf, num('headFlatLim'))}${num('headMilled') > 0 ? ` · rebajada ${nf(num('headMilled'), 2)} mm: mide las cámaras (6.2) después del rebaje` : ''}</p>` : '';
+  const cc = arr('cc', 'v'), ccM = maxA(cc), ccm = minA(cc), ccs = ccM - ccm;
+  $('r6cc').innerHTML = valid(cc).length < 2 ? '' : note(ccs <= 0.3 ? 'ok' : 'warn', `<p>Diferencia entre cámaras: <b>${nf(ccs, 1)} cc</b> ${ccs <= 0.3 ? chip('ok', 'igualadas') : ccs <= 0.5 ? chip('warn', 'conviene igualar') : chip('bad', 'hay que igualar')}</p>${ccs > 0.3 ? `<p>Se igualan a la mayor (${nf(ccM, 1)} cc), quitando material en la cámara, nunca en el plano de junta:</p>` + cc.map((v, i) => Number.isFinite(v) && ccM - v > 0.05 ? `<p>${tray(i)}: aumenta <b>${nf(ccM - v, 1)} cc</b> y vuelve a cubicar.</p>` : '').join('') : '<p class="hint">Regla de taller: hasta 0,3 cc de diferencia entre cámaras.</p>'}`);
+  MODEL.cc = cc;
+  // 6.3
+  const vs = VALVES(), gmn = num('guideMin'), gmx = num('guideMax'), gbad = [];
+  [0, 1, 2, 3].forEach(i => vs.forEach(([k, l]) => { const v = G('guides', k, i); if (Number.isFinite(v) && (v < gmn || v > gmx)) gbad.push(`<p>${tray(i)} · ${l.toLowerCase()}: ${nf(v, 3)} mm ${band(v, gmn, gmx)}${v > gmx ? ' · guía nueva' : ''}</p>`); }));
+  $('r6guides').innerHTML = gbad.length ? note('bad', gbad.join('')) : note('ok', '<p>Todas las guías dentro del rango.</p>');
+  springs();
+  cams();
+  // 7.4
+  const pi = num('p2vInt'), pe = num('p2vExh');
+  $('r7p2v').innerHTML = `<p>Admisión <b>${nf(pi, 1)} mm</b> ${band(pi, num('p2vMinInt'), 99)} · escape <b>${nf(pe, 1)} mm</b> ${band(pe, num('p2vMinExh'), 99)}</p>${(pi < num('p2vMinInt') || pe < num('p2vMinExh')) ? note('bad', '<p>Poca holgura: hay que vaciar más los cajeados de válvula del pistón, retrasar ese árbol o subir la junta. Repite la prueba tras el cambio.</p>') : ''}`;
+  lash();
+  compression();
+  limits();
+  final();
+}
+
+/* ---------- 5.3 equilibrado ---------- */
+const PERMS = (() => { const out = [], p = (a, r) => { if (!a.length) out.push(r); a.forEach((x, k) => p(a.filter((_, j) => j !== k), r.concat(x))); }; p([0, 1, 2, 3], []); return out; })();
+let balView = 'after', lastOps = '';
+function balance() {
+  const P = arr('weights', 'p'), B = arr('weights', 'b'), S = arr('weights', 's'), C = arr('weights', 'c'), RT = arr('weights', 'rt'), RG = arr('weights', 'rg'), RP = arr('weights', 'rp');
+  const tol = num('tolG'), mxP = num('maxCutP'), mxR = num('maxCutR');
+  const chk = [0, 1, 2, 3].map(i => Math.abs(RG[i] + RP[i] - RT[i])).map((d, i) => Number.isFinite(d) && d > 1 ? `<p>${tray(i)}: extremo grande + pequeño = ${nf(RG[i] + RP[i], 1)} g y la biela entera pesa ${nf(RT[i], 1)} g. Repite la pesada de los extremos (biela horizontal, soporte a la misma altura).</p>` : '').join('');
+  $('r5check').innerHTML = chk ? note('warn', chk) : '';
+  const all = [P, B, S, C, RG, RP].every(a => a.every(Number.isFinite));
+  if (!all) { $('balTrays').innerHTML = ''; $('balOps').innerHTML = ''; $('balArrows').innerHTML = ''; $('r5plan').innerHTML = note('warn', '<p>Faltan pesos en 5.2: el plan sale cuando estén las cuatro bandejas.</p>'); $('r5final').innerHTML = ''; MODEL.recip = NaN; MODEL.swaps = null; MODEL.pinPlan = null; lastOps = ''; return; }
+  // mejor reparto de bulones: el que obliga a quitar menos material de los pistones
+  let best = null;
+  PERMS.forEach(pm => { const asm = [0, 1, 2, 3].map(i => P[i] + B[pm[i]] + S[i] + C[i]), t = Math.min(...asm), cut = asm.map(a => a - t), tot = cut.reduce((s, x) => s + x, 0), mx = Math.max(...cut);
+    const sc = tot + (mx > mxP ? 1000 : 0) + (pm.filter((x, i) => x !== i).length) * 0.05;
+    if (!best || sc < best.sc) best = {pm, asm, t, cut, tot, mx, sc}; });
+  const id0 = [0, 1, 2, 3].map(i => P[i] + B[i] + S[i] + C[i]), tot0 = id0.reduce((s, a) => s + a - Math.min(...id0), 0);
+  // intercambios físicos (de dos en dos) para llegar a ese reparto
+  const cur = [0, 1, 2, 3], swaps = [];
+  for (let i = 0; i < 4; i++) if (cur[i] !== best.pm[i]) { const j = cur.indexOf(best.pm[i]); [cur[i], cur[j]] = [cur[j], cur[i]]; swaps.push([i, j]); }
+  const tg = best.t, gT = Math.min(...RG), pT = Math.min(...RP);
+  const ops = [];
+  swaps.forEach(([i, j]) => ops.push({k: `sw${i}${j}`, html: `Coge el <b>bulón</b> de la ${tray(i)} y cámbialo por el de la ${tray(j)}.`, sub: 'Solo el bulón: el pistón, los segmentos y los clips se quedan en su bandeja.'}));
+  [0, 1, 2, 3].forEach(i => { const c = best.cut[i]; if (c > tol / 2) ops.push({k: `cp${i}`, html: `De la ${tray(i)} coge el <b>pistón</b> y quítale <b>${nf(c, 1)} g</b>.`, sub: 'Por dentro, en los resaltes del bulón, repartido a los dos lados por igual. Nunca en la cabeza, las ranuras de los segmentos ni la falda.', after: {id: `aftP${i}`, target: P[i] - c, lbl: 'Pistón solo después'}}); });
+  [0, 1, 2, 3].forEach(i => { const c = RG[i] - gT; if (c > tol / 2) ops.push({k: `cg${i}`, html: `De la ${tray(i)} coge la <b>biela</b> y quítale <b>${nf(c, 1)} g del extremo grande</b>.`, sub: 'En el tetón de equilibrado del sombrerete, con la lima o la muela en sentido longitudinal, sin dejar marcas transversales. Sombrerete montado al pesar.', after: {id: `aftG${i}`, target: gT, lbl: 'Extremo grande después'}}); });
+  [0, 1, 2, 3].forEach(i => { const c = RP[i] - pT; if (c > tol / 2) ops.push({k: `cs${i}`, html: `De la ${tray(i)} coge la <b>biela</b> y quítale <b>${nf(c, 1)} g del extremo pequeño</b>.`, sub: 'En el tetón de encima del pie de biela, con la misma técnica. Vuelve a pesar los dos extremos.', after: {id: `aftS${i}`, target: pT, lbl: 'Extremo pequeño después'}}); });
+  const cutR = [0, 1, 2, 3].map(i => Math.max(RG[i] - gT, RP[i] - pT)), overR = cutR.some(c => c > mxR);
+  $('r5plan').innerHTML = note(best.mx > mxP || overR ? 'bad' : 'acc', `<p><strong class="lead">Plan:</strong> ${swaps.length ? `${swaps.length} cambio${swaps.length > 1 ? 's' : ''} de bulón y ` : ''}${ops.length - swaps.length} pieza${ops.length - swaps.length === 1 ? '' : 's'} a rebajar. Con el reparto de bulones elegido se quitan <b>${nf(best.tot, 1)} g</b> de los pistones en total${swaps.length ? `, frente a ${nf(tot0, 1)} g sin cambiar nada` : ''}.</p>
+    <p>Objetivos: conjunto pistón + bulón + segmentos + clips <b>${nf(tg, 1)} g</b> · extremo grande <b>${nf(gT, 1)} g</b> · extremo pequeño <b>${nf(pT, 1)} g</b> · tolerancia ±${nf(tol / 2, 2)} g.</p>
+    ${best.mx > mxP ? `<p class="chip bad">Un pistón tendría que perder ${nf(best.mx, 1)} g, más de lo permitido: busca un pistón más ligero o consulta al fabricante.</p>` : ''}${overR ? '<p>Una biela tendría que perder más de lo permitido: cambia esa biela por otra más ligera.</p>' : ''}`);
+  // bandejas
+  const show = balView;
+  $('balTrays').innerHTML = CYL.map((c, i) => {
+    const pin = show === 'after' ? best.pm[i] : i, cutP = show === 'after' ? best.cut[i] : 0, cg = show === 'after' ? RG[i] - gT : 0, cs = show === 'after' ? RP[i] - pT : 0;
+    const pw = P[i] - (cutP > tol / 2 ? cutP : 0), gw = RG[i] - (cg > tol / 2 ? cg : 0), sw = RP[i] - (cs > tol / 2 ? cs : 0);
+    const asm = pw + B[pin] + S[i] + C[i];
+    return `<div class="tray ${c.cls}"><h5>Bandeja ${c.name}<small>cil. ${c.n}</small></h5>
+      <div class="it${cutP > tol / 2 ? ' cut' : ''}"><span>Pistón</span><b>${nf(pw, 1)}${cutP > tol / 2 ? ` <small>(−${nf(cutP, 1)})</small>` : ''}</b></div>
+      <div class="it${pin !== i ? ' mv ' + CYL[pin].cls : ''}" style="${pin !== i ? '--tc2:var(--t' + (pin + 1) + ')' : ''}"><span>Bulón${pin !== i ? ` <small>de la ${CYL[pin].name}</small>` : ''}</span><b>${nf(B[pin], 1)}</b></div>
+      <div class="it"><span>Segm. + clips</span><b>${nf(S[i] + C[i], 1)}</b></div>
+      <div class="it${cg > tol / 2 ? ' cut' : ''}"><span>Biela grande</span><b>${nf(gw, 1)}${cg > tol / 2 ? ` <small>(−${nf(cg, 1)})</small>` : ''}</b></div>
+      <div class="it${cs > tol / 2 ? ' cut' : ''}"><span>Biela pequeño</span><b>${nf(sw, 1)}${cs > tol / 2 ? ` <small>(−${nf(cs, 1)})</small>` : ''}</b></div>
+      <div class="sum"><span><span class="lg">Alternativo</span><span class="sm">Total</span></span><span>${nf(asm + sw, 1)} g</span></div></div>`; }).join('');
+  $('balBefore').classList.toggle('primary', show === 'before'); $('balAfter').classList.toggle('primary', show === 'after');
+  const X = i => 50 + i * 100;
+  $('balArrows').innerHTML = show === 'after' ? swaps.map(([i, j], k) => { const a = Math.min(i, j), b = Math.max(i, j), h = 18 + (b - a) * 14 + k * 4; return `<path d="M${X(a)} 66 C${X(a)} ${66 - h * 1.4}, ${X(b)} ${66 - h * 1.4}, ${X(b)} 66" fill="none" stroke="var(--accent)" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-dasharray="6 4"/><path d="M${X(a) - 5} 58 L${X(a)} 68 L${X(a) + 5} 58 M${X(b) - 5} 58 L${X(b)} 68 L${X(b) + 5} 58" fill="none" stroke="var(--accent)" stroke-width="2.5" vector-effect="non-scaling-stroke"/>`; }).join('') : '';
+  fixVars($('balArrows'));
+  // lista de operaciones
+  const sig = JSON.stringify(ops.map(o => [o.k, o.html, o.after && o.after.target]));
+  const stat = o => { const v = num(o.after.id), d = v - o.after.target; return !Number.isFinite(v) ? '' : Math.abs(d) <= tol / 2 ? chip('ok', 'en tolerancia') : d > 0 ? chip('warn', `quita ${nf(d, 1)} g más`) : chip('bad', `te has pasado ${nf(-d, 1)} g`); };
+  if (sig !== lastOps) {
+    lastOps = sig;
+    $('balOps').innerHTML = ops.length ? ops.map(o => { const aft = o.after ? `<div class="after"><label for="${o.after.id}">${o.after.lbl}:</label><input id="${o.after.id}" type="number" step="0.1" value="${V[o.after.id] ?? ''}" placeholder="g"> <span>objetivo ${nf(o.after.target, 1)} g</span> <span id="st_${o.after.id}"></span></div>` : '';
+      return `<li data-op="${o.k}"><div class="what">${o.html}<small>${o.sub}</small></div><label class="done"><input type="checkbox" id="op_${o.k}"> Hecho</label>${aft}</li>`; }).join('') : `<li class="done"><div class="what">No hace falta tocar nada: las cuatro bandejas ya están dentro de ±${nf(tol / 2, 2)} g.</div></li>`;
+  }
+  ops.forEach(o => { const li = document.querySelector(`#balOps li[data-op="${o.k}"]`); if (!li) return; const d = V['op_' + o.k] === '1'; li.classList.toggle('done', d); $('op_' + o.k).checked = d; if (o.after) $('st_' + o.after.id).innerHTML = stat(o); });
+  // resultado final con lo que se haya pesado después
+  const fp = [0, 1, 2, 3].map(i => { const a = num(`aftP${i}`); return (Number.isFinite(a) ? a : P[i] - (best.cut[i] > tol / 2 ? best.cut[i] : 0)) + B[best.pm[i]] + S[i] + C[i]; });
+  const fs = [0, 1, 2, 3].map(i => { const a = num(`aftS${i}`); return Number.isFinite(a) ? a : (RP[i] - pT > tol / 2 ? pT : RP[i]); });
+  const fg = [0, 1, 2, 3].map(i => { const a = num(`aftG${i}`); return Number.isFinite(a) ? a : (RG[i] - gT > tol / 2 ? gT : RG[i]); });
+  const rec = fp.map((a, i) => a + fs[i]), rs = Math.max(...rec) - Math.min(...rec), gs = Math.max(...fg) - Math.min(...fg);
+  const fell = fp.map((a, i) => Number.isFinite(num(`aftP${i}`)) && a < tg - tol / 2 ? i : -1).filter(i => i >= 0);
+  $('r5final').innerHTML = note(rs <= tol && gs <= tol ? 'ok' : 'warn', `<p><strong class="lead">Cómo quedan:</strong> diferencia de masa alternativa <b>${nf(rs, 1)} g</b> ${rs <= tol ? chip('ok', 'en tolerancia') : chip('warn', 'fuera')} · diferencia de extremo grande <b>${nf(gs, 1)} g</b> ${gs <= tol ? chip('ok', 'en tolerancia') : chip('warn', 'fuera')}.</p>${fell.length ? `<p>Te has pasado en ${fell.map(tray).join(', ')}: ese conjunto es ahora el más ligero. Iguala los demás a ${nf(Math.min(...fp), 1)} g (la página ya cuenta con el peso que has apuntado).</p>` : ''}<p class="hint">Antes de pesar «después», la pieza limpia de virutas. La masa alternativa por cilindro (unos ${nf(avgA(rec), 0)} g) entra en los límites del paso 9.</p>`);
+  MODEL.recip = avgA(rec); MODEL.pinPlan = best.pm; MODEL.swaps = swaps;
+  $('assyText').innerHTML = `Según el plan de equilibrado (5.3): ${swaps.length ? 'cada pistón con el bulón que le ha tocado (' + [0, 1, 2, 3].filter(i => best.pm[i] !== i).map(i => `${tray(i)} lleva el de la ${CYL[best.pm[i]].name}`).join(', ') + ')' : 'cada pistón con el bulón de su bandeja'}. Flecha o marca del pistón hacia la distribución. Clips con la abertura hacia arriba o abajo, nunca hacia la ranura de extracción.`;
+}
+/* ---------- 5.4 segmentos ---------- */
+function rings() {
+  const D = R.boreFinal, t1 = num('k1') * D, t2 = num('k2') * D, t3 = num('oilMin'), W = 0.10, out = [];
+  [0, 1, 2, 3].forEach(i => [['r1', t1, '1.º'], ['r2', t2, '2.º'], ['r3', t3, 'rascador']].forEach(([k, t, n]) => { const v = G('rings', k, i); if (!Number.isFinite(v)) return;
+    if (v < t) out.push(`<p>${tray(i)} · ${n}: ${nf(v, 2)} mm → lima hasta <b>${nf(t + 0.02, 2)} mm</b> (quita ${nf(t + 0.02 - v, 2)}). Lima solo un extremo, recto, y quita la rebaba.</p>`);
+    else if (v > t + W + 0.05) out.push(`<p>${tray(i)} · ${n}: ${nf(v, 2)} mm ${chip('warn', 'demasiado abierto')} → usa otro segmento.</p>`); }));
+  $('r5rings').innerHTML = Number.isFinite(D) ? note(out.length ? 'warn' : 'ok', `<p>Con el cilindro a ${nf(D, 3)} mm: primer segmento <b>${nf(t1, 2)}–${nf(t1 + W, 2)} mm</b>, segundo <b>${nf(t2, 2)}–${nf(t2 + W, 2)} mm</b>, rascador desde <b>${nf(t3, 2)} mm</b>.</p>${out.join('') || '<p>Todas las aberturas en su sitio.</p>'}`) : '';
+}
+/* ---------- 6.4 muelles ---------- */
+function springs() {
+  const vs = VALVES(), refH = num('spRefH'), refL = num('spRefLoad'), k = num('spRate'), bind = num('spBind'), mg = num('spMargin'), minO = num('spMinOpen');
+  const rows = [], all = [];
+  [0, 1, 2, 3].forEach(i => vs.forEach(([key, l]) => { const h = G('springs', key, i); if (!Number.isFinite(h)) return; const lift = key[0] === 'A' ? num('liftInt') : num('liftExh');
+    const seat = refL + k * (refH - h), open = refL + k * (refH - (h - lift)), m = h - lift - bind; all.push({h, seat, open, m});
+    rows.push(`<tr class="cy ${CYL[i].cls}"><th>${CYL[i].n} · ${l}</th><td class="res">${nf(h, 1)}</td><td class="res">${nf(seat, 0)}</td><td class="res">${nf(open, 0)}</td><td class="res">${nf(m, 1)}</td><td class="res">${m < mg ? chip('bad', 'llega a bloque') : minO > 0 && open < minO ? chip('warn', 'poca carga') : chip('ok', 'bien')}${h - refH > 0.15 ? ` · arandela ${nf(h - refH, 1)} mm` : ''}</td></tr>`); }));
+  MODEL.spring = all;
+  $('r6springs').innerHTML = rows.length ? `<div class="scroll"><table class="grid"><thead><tr><th>Válvula</th><th class="r">Altura instalada</th><th class="r">Carga en asiento (N)</th><th class="r">Carga abierta (N)</th><th class="r">Margen a bloque (mm)</th><th class="r"></th></tr></thead><tbody>${rows.join('')}</tbody></table></div><p class="hint">Si la altura instalada pasa de la de referencia, una arandela bajo el muelle de ese espesor iguala la carga.</p>` : '';
+}
+/* ---------- 7 calado ---------- */
+function cams() {
+  const A = num('tdcA'), B = num('tdcB'), off = (A - B) / 2;
+  $('r7tdc').innerHTML = !Number.isFinite(off) ? '' : Math.abs(off) < 0.25 ? note('ok', `<p>A y B iguales: el puntero ya marca el PMS real ${chip('ok', 'bien')}.</p>`) : note('warn', `<p>El PMS real está <b>${nf(Math.abs(off), 1)}°</b> hacia el lado de la lectura ${off > 0 ? 'A' : 'B'}. Dobla el puntero esa cantidad hacia ese lado, repite las dos lecturas hasta que salgan iguales y quita el tope.</p>`);
+  const ivo = num('ivo'), ivc = num('ivc'), evo = num('evo'), evc = num('evc'), ok = [ivo, ivc, evo, evc].every(Number.isFinite);
+  const dI = ivo + 180 + ivc, dE = evo + 180 + evc, icl = dI / 2 - ivo, ecl = dE / 2 - evc, lsa = (icl + ecl) / 2, ovl = ivo + evc;
+  MODEL.ivc = ivc; drawCam({ok, ivo, ivc, evo, evc, ovl});
+  if (!ok) { $('r7cam').innerHTML = ''; return; }
+  const ti = num('cardICL'), te = num('cardECL'), di = icl - ti, de = ecl - te;
+  const mv = (d, n, adv) => Math.abs(d) < 0.5 ? `<p>Árbol de ${n}: ${chip('ok', 'en su sitio')}</p>` : `<p>Árbol de ${n}: <b>${adv ? 'adelántalo' : 'retrásalo'} ${nf(Math.abs(d), 1)}°</b> de cigüeñal (${nf(Math.abs(d) / 2, 1)}° en su polea) y vuelve a medir.</p>`;
+  const body = is16() ? mv(di, 'admisión', di > 0) + mv(de, 'escape', de < 0) :
+    (() => { const avg = (di - de) / 2; return Math.abs(avg) < 0.5 ? `<p>Árbol de levas: ${chip('ok', 'en su sitio')}</p>` : `<p>En el 8v hay un solo árbol: <b>${avg > 0 ? 'adelántalo' : 'retrásalo'} ${nf(Math.abs(avg), 1)}°</b> de cigüeñal para repartir el error entre admisión y escape.</p>`; })();
+  $('r7cam').innerHTML = `<div class="cards"><div class="card"><h5>Centro de leva admisión</h5><div class="big">${nf(icl, 1)}<small>° DPMS</small></div><div class="sub">ficha ${nf(ti, 1)}° · ${sg(di, 1)}°</div></div>
+    <div class="card"><h5>Centro de leva escape</h5><div class="big">${nf(ecl, 1)}<small>° APMS</small></div><div class="sub">ficha ${nf(te, 1)}° · ${sg(de, 1)}°</div></div>
+    <div class="card"><h5>Duración a ${nf(num('refLift'), 1)} mm</h5><div class="big">${nf(dI, 0)} / ${nf(dE, 0)}<small>°</small></div><div class="sub">admisión / escape</div></div>
+    <div class="card"><h5>Separación de levas</h5><div class="big">${nf(lsa, 1)}<small>°</small></div><div class="sub">cruce ${nf(ovl, 0)}° a ${nf(num('refLift'), 1)} mm</div></div></div>` + note(Math.abs(di) < 0.5 && Math.abs(de) < 0.5 ? 'ok' : 'warn', body + '<p class="hint">Centro de leva = mitad de la duración menos la apertura (admisión) o el cierre (escape). Más avance de admisión da más par abajo; retrasarla lo lleva arriba.</p>');
+}
+/* ---------- 7.5 pastillas ---------- */
+function lash() {
+  const mec = V.lash !== 'hid'; $('lashBox').hidden = !mec; if (!mec) return;
+  const ti = num('lashInt'), te = num('lashExh'), rows = [];
+  GRIDS.lash.rows.forEach(r => { const m = G('lash', 'm', r.key), s = G('lash', 's', r.key); if (!Number.isFinite(m) || !Number.isFinite(s)) return; const t = r.key.includes('A') ? ti : te, ns = s + m - t, ok = Math.abs(m - t) <= 0.03;
+    rows.push(`<tr class="cy ${CYL[r.cyl].cls}"><th>${r.label}</th><td class="res">${nf(m, 2)}</td><td class="res">${nf(t, 2)}</td><td class="res">${ok ? 'deja la ' + nf(s, 2) : `<b>${nf(Math.round(ns * 40) / 40, 3)}</b>`}</td><td class="res">${ok ? chip('ok', 'bien') : chip('warn', 'cambiar')}</td></tr>`); });
+  $('r7lash').innerHTML = rows.length ? `<div class="scroll"><table class="grid"><thead><tr><th>Válvula</th><th class="r">Medido</th><th class="r">Objetivo</th><th class="r">Pastilla a poner (mm)</th><th class="r"></th></tr></thead><tbody>${rows.join('')}</tbody></table></div><p class="hint">Pastilla nueva = pastilla montada + juego medido − juego objetivo, redondeada al paso de 0,025 mm.</p>` : '';
+}
+/* ---------- 8 compresión ---------- */
+function compression() {
+  const D = R.boreFinal, s = num('stroke'), pv = num('pVol'), gb = num('gBore'), gt = num('gThick');
+  const Vs = PI4 * D * D * s / 1000, Vg = PI4 * gb * gb * gt / 1000;
+  const C = [0, 1, 2, 3].map(i => { const cc = G('cc', 'v', i), dk = G('deck', 'v', i), Vd = PI4 * D * D * dk / 1000, Vc = cc - pv + Vg + Vd; return {cc, dk, Vd, Vc, cr: (Vs + Vc) / Vc, sq: dk + gt}; });
+  MODEL.Vs = Vs; MODEL.Vc = avgA(C.map(c => c.Vc)); MODEL.cr = avgA(C.map(c => c.cr)); MODEL.sq = minA(C.map(c => c.sq));
+  const crs = C.map(c => c.cr), sp = maxA(crs) - minA(crs);
+  const sqChip = q => !Number.isFinite(q) ? chip('na', 'sin dato') : q < 0.6 ? chip('bad', 'demasiado justo') : q <= 1.1 ? chip('ok', 'bien') : chip('warn', 'amplio');
+  $('r8cr').innerHTML = `<div class="formula">RC = ( <i>V</i><sub>cilindro</sub> + <i>V</i><sub>arriba</sub> ) ÷ <i>V</i><sub>arriba</sub></div><p class="hint" style="max-width:none"><i>V</i><sub>arriba</sub> = cámara − volumen del pistón (vaciado suma, cúpula resta) + junta + el hueco entre el pistón y el borde de la camisa.</p>
+    <p>Cilindro a ${nf(D, 3)} mm × carrera ${nf(s, 1)} mm = <b>${nf(Vs, 1)} cc</b> por cilindro (<b>${nf(Vs * 4, 0)} cc</b> en total). Junta: ${nf(Vg, 2)} cc.</p>` +
+    tbl(['Cilindro', 'Cámara (cc)', 'Altura pistón (cc)', 'Volumen total arriba (cc)', 'Relación de compresión', 'Squish (mm)'], C.map((c, i) => cylRow(i, [nf(c.cc, 1), nf(c.Vd, 2), nf(c.Vc, 2), `<b>${nf(c.cr, 2)} : 1</b>`, `${nf(c.sq, 2)} ${sqChip(c.sq)}`]))) +
+    (Number.isFinite(sp) ? `<p>Diferencia entre cilindros: <b>${nf(sp, 2)}</b> ${sp <= 0.15 ? chip('ok', 'igualados') : chip('warn', 'iguala cámaras (6.2) o alturas')}. Squish orientativo con bielas de acero hasta unas 9000 rpm: 0,7 a 1,1 mm.</p>` : '');
+  const t = num('crT'), need = Vs / (t - 1), dV = MODEL.Vc - need, area = PI4 * D * D / 1000, ga = PI4 * gb * gb / 1000;
+  if (!Number.isFinite(dV)) { $('r8target').innerHTML = ''; return; }
+  const mill = dV / area, nt = gt - dV / ga, nsq = MODEL.sq - (gt - nt);
+  $('r8target').innerHTML = Math.abs(dV) < 0.15 ? note('ok', `<p>La media ya está en <b>${nf(MODEL.cr, 2)} : 1</b>, en el objetivo.</p>`) : dV > 0 ? note('acc', `<p>Para pasar de ${nf(MODEL.cr, 2)} a <b>${nf(t, 1)} : 1</b> hay que quitar <b>${nf(dV, 2)} cc</b> por cilindro. Dos caminos:</p>
+      <p>• <b>Rebajar la culata unos ${nf(mill, 2)} mm</b> (aproximado: la cámara se toma del tamaño del cilindro). Después vuelve a cubicar en 6.2 y a comprobar la holgura válvula-pistón en 7.4, y recuerda que la correa queda un poco más floja y el calado se retrasa.</p>
+      <p>• <b>Junta de ${nf(nt, 2)} mm</b> en lugar de ${nf(gt, 2)} mm: el squish bajaría a ${nf(nsq, 2)} mm ${sqChip(nsq)}.${nsq < 0.6 ? ' Con ese squish el pistón podría tocar la culata a alto régimen: mejor el rebaje de culata.' : ''}</p>`) :
+    note('warn', `<p>La compresión es más alta que el objetivo: sobran <b>${nf(-dV, 2)} cc</b>. Una junta de <b>${nf(nt, 2)} mm</b> lo arregla (squish ${nf(nsq, 2)} mm ${sqChip(nsq)}), o un pistón con más vaciado.</p>`);
+  // 8.4 dinámica
+  const l = num('rodLen'), r = s / 2, ivc = MODEL.ivc + num('ivcCorr'), th = (180 - ivc) * Math.PI / 180;
+  const x = r * (1 - Math.cos(th)) + l - Math.sqrt(l * l - r * r * Math.sin(th) ** 2), Vdyn = PI4 * D * D * x / 1000, dcr = (Vdyn + MODEL.Vc) / MODEL.Vc;
+  MODEL.dcr = dcr;
+  $('r8dcr').innerHTML = !Number.isFinite(dcr) ? '<p class="hint">Faltan las medidas de 7.3.</p>' : note(dcr <= 8.6 ? 'ok' : dcr <= 9.2 ? 'warn' : 'bad', `<p>La admisión cierra a ${nf(ivc, 0)}° después del PMI: desde ahí el pistón recorre <b>${nf(x, 1)} mm</b> de los ${nf(s, 0)}. Compresión dinámica: <b>${nf(dcr, 2)} : 1</b> ${dcr <= 8.6 ? chip('ok', 'margen con 98') : dcr <= 9.2 ? chip('warn', 'al límite: cuidado con el avance') : chip('bad', 'riesgo de detonación')}</p><p class="hint">Orientativo para gasolina de 98 con culata de aluminio y buena cámara: hasta unos 8,5–9. Una leva con más cruce y cierre más tardío admite más compresión estática.</p>`);
+}
+/* ---------- 9 límites ---------- */
+function limits() {
+  const s = num('stroke'), l = num('rodLen'), n = num('rpmMax'), r = s / 2000, lam = l / s;
+  const row = rpm => { const w = rpm * 2 * Math.PI / 60, vm = 2 * s / 1000 * rpm / 60, a = r * w * w * (1 + r / (l / 1000)), F = MODEL.recip / 1000 * a / 1000; return {rpm, vm, a, F}; };
+  const rows = [6000, 7000, 8000, n].filter((v, i, a) => Number.isFinite(v) && a.indexOf(v) === i).sort((a, b) => a - b).map(row);
+  const top = row(n), ch = top.vm <= 22 ? chip('ok', 'normal en competición') : top.vm <= 25 ? chip('warn', 'exigente: bielas y tornillería de calidad') : chip('bad', 'muy alto');
+  MODEL.vm = top.vm;
+  $('r9').innerHTML = `<div class="cards"><div class="card"><h5>Velocidad media del pistón</h5><div class="big">${nf(top.vm, 1)}<small>m/s</small></div><div class="sub">a ${nf(n, 0)} rpm ${ch}</div></div>
+    <div class="card"><h5>Aceleración en el PMS</h5><div class="big">${nf(top.a / 9.81 / 1000, 1)}<small>mil g</small></div><div class="sub">${nf(top.a, 0)} m/s²</div></div>
+    <div class="card"><h5>Fuerza de inercia por cilindro</h5><div class="big">${nf(top.F, 1)}<small>kN</small></div><div class="sub">con ${nf(MODEL.recip, 0)} g de masa alternativa (5.3)</div></div>
+    <div class="card"><h5>Relación biela / carrera</h5><div class="big">${nf(lam, 2)}</div><div class="sub">más alta = menos empuje lateral del pistón</div></div></div>` +
+    tbl(['Régimen', 'Velocidad media (m/s)', 'Aceleración (m/s²)', 'Fuerza de inercia (kN)'], rows.map(x => `<tr><th>${nf(x.rpm, 0)} rpm</th><td class="res">${nf(x.vm, 1)}</td><td class="res">${nf(x.a, 0)}</td><td class="res">${nf(x.F, 1)}</td></tr>`)) +
+    '<p class="hint">Orientativo: hasta unos 22 m/s de velocidad media es habitual en motores de competición atmosféricos; por encima, la vida de bielas, tornillos y cojinetes baja mucho. La fuerza de inercia es la que estira los tornillos de biela en el PMS de escape.</p>';
+  const sp = MODEL.spring || [], mo = minA(sp.map(x => x.open)), mm = minA(sp.map(x => x.m)), req = num('spMinOpen');
+  $('r9spring').innerHTML = sp.length ? note(mm >= num('spMargin') && (!(req > 0) || mo >= req) ? 'ok' : 'warn', `<p>Carga abierta mínima <b>${nf(mo, 0)} N</b>${req > 0 ? ` frente a ${nf(req, 0)} N que pide la leva` : ''} · margen a bloque mínimo <b>${nf(mm, 1)} mm</b>.</p><p class="hint">Si los muelles se quedan cortos, la válvula «flota» a alto régimen: pierde potencia arriba y puede tocar el pistón. El fabricante de la leva da la carga necesaria para cada régimen.</p>`) : '';
+}
+/* ---------- 11 y ficha ---------- */
+function final() {
+  const a = arr('comp', 'v'), b = arr('comp2', 'v'), la = arr('leak', 'p'), lb = arr('leak2', 'p');
+  $('r11').innerHTML = valid(b).length ? tbl(['Cilindro', 'Compresión antes → después (bar)', 'Fuga antes → después (%)'], [0, 1, 2, 3].map(i => cylRow(i, [`${nf(a[i], 1)} → <b>${nf(b[i], 1)}</b>`, `${nf(la[i], 0)} → <b>${nf(lb[i], 0)}</b>`]))) : '';
+  const ed = ids => ids.some(id => String(V[id] ?? '') !== DEF[id]);
+  const Vv = (ids, t) => `<span class="${ed(ids) ? '' : 'est'}">${t}</span>`;
+  const g = t => `<tr class="grp"><th colspan="2">${t}</th></tr>`, r = (k, v) => `<tr><th>${k}</th><td>${v}</td></tr>`;
+  const wid = ['p', 'b', 's', 'c', 'rt', 'rg', 'rp'].flatMap(k => [0, 1, 2, 3].map(i => `weights_${k}_${i}`));
+  $('sheet').innerHTML = `<table class="sheet"><tbody>
+    ${g('Motor')}${r('Versión', is16() ? 'TU5J4 · 16 válvulas' : 'TU5JP / TU5J2 · 8 válvulas')}${r('Número de motor', Vv(['engNo'], V.engNo || '—'))}${r('Kilómetros al desmontar', Vv(['km'], nf(num('km'), 0)))}${r('Régimen máximo', nf(num('rpmMax'), 0) + ' rpm')}
+    ${g('Diagnóstico inicial (1)')}${r('Compresión (bar)', Vv(['comp_v_0', 'comp_v_1', 'comp_v_2', 'comp_v_3'], a.map(x => nf(x, 1)).join(' · ')))}${r('Fugas (%)', Vv(['leak_p_0', 'leak_p_1', 'leak_p_2', 'leak_p_3'], la.map(x => nf(x, 0)).join(' · ')))}
+    ${g('Bloque y cigüeñal (3 y 4)')}${r('Medida final del cilindro', nf(R.boreFinal, 3) + ' mm')}${r('Mayor desgaste encontrado', nf(R.boreMax, 3) + ' mm')}${r('Holguras de bancada (mm)', (R.clr.main || []).map(x => nf(x, 3)).join(' · '))}${r('Holguras de biela (mm)', (R.clr.rod || []).map(x => nf(x, 3)).join(' · '))}${r('Juego axial', nf(num('crankAxial'), 2) + ' mm')}
+    ${g('Equilibrado (5)')}${r('Masa alternativa por cilindro', Vv(wid, nf(MODEL.recip, 1) + ' g'))}${r('Reparto de bulones', MODEL.swaps && MODEL.swaps.length ? [0, 1, 2, 3].filter(i => MODEL.pinPlan[i] !== i).map(i => `${CYL[i].name} ← ${CYL[MODEL.pinPlan[i]].name}`).join(' · ') : 'cada uno el suyo')}
+    ${g('Culata y distribución (6 y 7)')}${r('Cámaras (cc)', Vv(['cc_v_0', 'cc_v_1', 'cc_v_2', 'cc_v_3'], arr('cc', 'v').map(x => nf(x, 1)).join(' · ')))}${r('Rebaje de culata', nf(num('headMilled'), 2) + ' mm')}${r('Calado medido (AA / CA / AE / CE)', Vv(['ivo', 'ivc', 'evo', 'evc'], ['ivo', 'ivc', 'evo', 'evc'].map(k => nf(num(k), 1) + '°').join(' / ')))}${r('Holgura válvula-pistón (adm. / esc.)', nf(num('p2vInt'), 1) + ' / ' + nf(num('p2vExh'), 1) + ' mm')}
+    ${g('Compresión (8)')}${r('Cilindrada total', nf(MODEL.Vs * 4, 0) + ' cc')}${r('Relación de compresión media', nf(MODEL.cr, 2) + ' : 1')}${r('Compresión dinámica', nf(MODEL.dcr, 2) + ' : 1')}${r('Squish mínimo', nf(MODEL.sq, 2) + ' mm')}
+    ${g('Límites (9)')}${r('Velocidad media del pistón', nf(MODEL.vm, 1) + ' m/s a ' + nf(num('rpmMax'), 0) + ' rpm')}
+    ${g('Montaje (10)')}${r('Pares usados', ['tqMain', 'tqRod', 'tqHead1', 'tqHead2', 'tqHead3', 'tqCam'].map(k => V[k] || '—').join(' · ') + ' (bancada · biela · culata 1-2-3 · poleas)')}
+  </tbody></table>`;
+}
+
+/* ===================== progreso, índice y barra de siguiente tarea ===================== */
+const SECS = [['s1', 'Mides compresión, fugas y presión de aceite con el motor en el coche.', 'Qué cilindro falla y por dónde.'], ['s2', 'Desmontas a cuatro bandejas de colores y marcas cada pieza.', 'Cada pieza con su cilindro.'],
+  ['s3', 'Mides cilindros, camisas y plano de junta.', 'Medida final del cilindro y qué mecanizar.'], ['s4', 'Mides apoyos, muñequillas y cojinetes.', 'Holguras de aceite y juegos.'],
+  ['s5', 'Pesas pistones, bulones y bielas por bandeja y ajustas segmentos.', 'Qué intercambiar y cuántos gramos quitar a cada pieza.'], ['s6', 'Cubicas cámaras, mides guías y muelles.', 'Cámaras igualadas y muelles comprobados.'],
+  ['s7', 'Calas los árboles con disco graduado.', 'Cuánto mover cada polea y qué pastillas poner.'], ['s8', 'Mides la altura del pistón y eliges junta.', 'Compresión, squish y compresión dinámica.'],
+  ['s9', 'No mides nada: es la comprobación.', 'Hasta qué régimen aguanta el conjunto.'], ['s10', 'Montas en orden con los pares.', 'Motor montado y registrado.'],
+  ['s11', 'Arrancas, rodas y repites compresión y fugas.', 'Comparación antes y después.'], ['s12', 'Revisas y guardas.', 'Una ficha por motor.']];
+function progress() {
+  const tasks = [...document.querySelectorAll('li.task')].filter(li => !li.closest('[hidden]'));
+  let done = 0, next = null; const per = {};
+  tasks.forEach(li => { const sec = li.closest('section').id, d = V['d_' + li.dataset.t] === '1'; li.classList.toggle('done', d); li.classList.remove('next'); per[sec] = per[sec] || [0, 0]; per[sec][1]++; if (d) { per[sec][0]++; done++; } else if (!next) next = li; });
+  if (next) next.classList.add('next');
+  Object.keys(per).forEach(s => { const h = document.querySelector(`#${s} h2`), p = per[s]; let el = h.querySelector('.prog'); if (!el) { el = document.createElement('span'); el.className = 'prog'; h.appendChild(el); } el.textContent = `${p[0]} de ${p[1]} tareas`; el.classList.toggle('full', p[0] === p[1]);
+    const ra = document.querySelector(`.rail a[href="#${s}"] .pc`); if (ra) { ra.textContent = `${p[0]}/${p[1]}`; ra.classList.toggle('full', p[0] === p[1]); } const rd = document.querySelector(`#roadmap td[data-p="${s}"]`); if (rd) rd.textContent = `${p[0]} de ${p[1]}`; });
+  document.querySelectorAll('#roadmap td[data-p]').forEach(td => { if (!per[td.dataset.p]) td.textContent = '—'; });
+  $('nbBar').style.width = (done / tasks.length * 100) + '%'; $('nbCnt').textContent = `${done} de ${tasks.length}`;
+  if (next) { const sec = next.closest('section'), h3 = [...sec.querySelectorAll('h3')].filter(h => h.compareDocumentPosition(next) & Node.DOCUMENT_POSITION_FOLLOWING).pop(); $('nbTxt').innerHTML = `Siguiente · <b>${(h3 ? h3.textContent.split(' ')[0] : sec.querySelector('h2 .n')?.textContent || '')} ${next.querySelector('.tt span').textContent}</b>`; $('nbGo').hidden = false; $('nbGo').onclick = () => next.scrollIntoView({behavior: 'smooth', block: 'center'}); }
+  else { $('nbTxt').innerHTML = '<b>Motor terminado.</b> Revisa la ficha en el paso 12.'; $('nbGo').hidden = true; }
+}
+function buildNav() {
+  const tb = $('roadmap').querySelector('tbody');
+  tb.innerHTML = SECS.map(([id, a, b]) => { const h = document.querySelector(`#${id} h2`); const t = h.childNodes[1] ? h.childNodes[1].textContent : h.textContent; return `<tr><td><a href="#${id}">${id.slice(1)} · ${t.split(':')[0]}</a></td><td>${a}</td><td>${b}</td><td class="r" data-p="${id}"></td></tr>`; }).join('');
+  const subs = [];
+  $('railList').innerHTML = [...document.querySelectorAll('main section.step')].map(sec => { const h = sec.querySelector('h2'), n = h.querySelector('.n'); const t = n ? `${n.textContent} · ${h.childNodes[1].textContent.split(':')[0]}` : 'Hoja de ruta';
+    const hs = [...sec.querySelectorAll('h3')].filter(x => /^\d+\.\d+\s/.test(x.textContent.trim()));
+    hs.forEach(x => { if (!x.id) x.id = 'sub-' + x.textContent.trim().split(' ')[0].replace('.', '-'); });
+    return `<li><a href="#${sec.id}"><span>${t}</span><span class="pc"></span></a>${hs.length ? `<ol class="sub">${hs.map(x => `<li><a href="#${x.id}" title="${x.textContent.trim()}">${x.textContent.trim()}</a></li>`).join('')}</ol>` : ''}</li>`; }).join('');
+  const links = [...document.querySelectorAll('.rail a')];
+  let tk = 0; const mark = () => { tk = 0; const lim = innerHeight * 0.3; let curS = null, curH = null;
+    document.querySelectorAll('main section.step').forEach(s => { if (s.getBoundingClientRect().top < lim) curS = s.id; });
+    document.querySelectorAll('main h3[id]').forEach(h => { if (h.getBoundingClientRect().top < lim) curH = h.id; });
+    links.forEach(a => { const href = a.getAttribute('href').slice(1); a.classList.toggle('on', href === curS || href === curH); });
+    const on = document.querySelector('.rail ol.sub a.on'); if (on) { const rl = on.closest('.rail'), cr = on.getBoundingClientRect(), rr = rl.getBoundingClientRect(); if (cr.top < rr.top + 20 || cr.bottom > rr.bottom - 20) rl.scrollTop += cr.top - rr.top - rr.height / 3; } };
+  addEventListener('scroll', () => { if (!tk) tk = requestAnimationFrame(mark); }, {passive: true}); mark();
+}
+
+/* ===================== guardado ===================== */
+let saveT = 0;
+function save() { try { localStorage.setItem(KEY, JSON.stringify(V)); $('saveHint').textContent = 'Guardado en este navegador.'; } catch (_) { $('saveHint').textContent = 'Este navegador no deja guardar: usa «Ver mis datos» y guarda el texto.'; } }
+function load() { try { const s = localStorage.getItem(KEY); if (s) Object.assign(V, JSON.parse(s)); } catch (_) {} }
+
+function update() { compute(); markEdited(); progress(); clearTimeout(saveT); saveT = setTimeout(save, 400); $('engineHint').textContent = is16() ? 'Con 16 válvulas: dos árboles de levas con poleas independientes y cuatro válvulas por cilindro.' : 'Con 8 válvulas: un solo árbol de levas y dos válvulas por cilindro. Comprueba la longitud de biela de tu versión en 5.1.'; $('valveTrayText').textContent = is16() ? 'Cada válvula con su muelle, copela y semiconos en la bandeja de su cilindro, en fila: las dos de admisión a la izquierda y las dos de escape a la derecha, en el orden en que salen.' : 'Cada válvula con su muelle, copela y semiconos en la bandeja de su cilindro: admisión a la izquierda y escape a la derecha.'; }
+
+/* ===================== arranque ===================== */
+load();
+renderInputs(); drawStatic(); buildNav();
+document.addEventListener('input', e => { const el = e.target; if (!el.id || !el.closest('main')) return; if (el.type === 'checkbox') return; V[el.id] = el.value; if (el.id === 'ver') { renderInputs(); } update(); });
+document.addEventListener('change', e => { const el = e.target; if (!el.id || !el.closest('main')) return;
+  if (el.type === 'checkbox') { V[el.id] = el.checked ? '1' : ''; update(); return; }
+  V[el.id] = el.value; if (el.id === 'ver') renderInputs(); update(); });
+$('balBefore').onclick = () => { balView = 'before'; update(); };
+$('balAfter').onclick = () => { balView = 'after'; update(); };
+$('exportData').onclick = () => { const b = $('dataBox'); b.hidden = false; b.value = JSON.stringify(V); b.select(); try { navigator.clipboard.writeText(b.value).then(() => { $('saveHint').textContent = 'Datos copiados: pégalos en un archivo de texto con el número de motor.'; }, () => {}); } catch (_) {} };
+$('importData').onclick = () => { const b = $('dataBox'); b.hidden = false; try { const d = JSON.parse(b.value); Object.keys(V).forEach(k => delete V[k]); Object.assign(V, DEF, d); renderInputs(); update(); $('saveHint').textContent = 'Datos cargados.'; } catch (_) { $('saveHint').textContent = 'No he podido leer esos datos: pega el texto que sale de «Ver mis datos».'; } };
+$('copySheet').onclick = () => { const t = [...$('sheet').querySelectorAll('tr')].map(tr => [...tr.children].map(c => c.textContent.trim()).join(': ')).join('\n'); try { navigator.clipboard.writeText(t).then(() => { $('saveHint').textContent = 'Ficha copiada como texto.'; }, () => { const b = $('dataBox'); b.hidden = false; b.value = t; b.select(); }); } catch (_) { const b = $('dataBox'); b.hidden = false; b.value = t; b.select(); } };
+$('newEngine').onclick = () => { $('newConfirm').hidden = false; };
+$('newNo').onclick = () => { $('newConfirm').hidden = true; };
+$('newYes').onclick = () => { EX.forEach(id => { V[id] = ''; }); Object.keys(V).forEach(k => { if (/^(d_|op_|aft)/.test(k)) delete V[k]; }); lastOps = ''; renderInputs(); update(); $('newConfirm').hidden = true; scrollTo({top: 0, behavior: 'smooth'}); };
+if (window.matchMedia) { const mq = matchMedia('(prefers-color-scheme: dark)'); if (mq.addEventListener) mq.addEventListener('change', update); }
+update();
+})();
+
+</script>
+</body>
+</html>
